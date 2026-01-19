@@ -30,25 +30,25 @@ extension Route {
             HomePage()
 
         case .story:
-            StoryPage()
+            StoryPage(path: path)
             
         case .map:
-            Map()
+            Map(path: path)
             
         case .gameIntro:
-            GameIntro()
+            GameIntro(path: path)
             
         case .game1:
-            waterCleaning()
+            waterCleaning(path: path)
             
         case .game2:
-            Boats()
+            Boats(path: path)
             
         case .game3:
-            LunchTime()
+            LunchTime(path: path)
             
         case .final:
-            FinalPage()
+            FinalPage(path: path)
         }
     }
 }

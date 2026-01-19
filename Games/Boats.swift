@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct Boats: View {
+    @Binding var path: [Route]
+    
     var body: some View {
         Text("Hello, World!")
     }

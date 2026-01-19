@@ -8,9 +8,24 @@
 import SwiftUI
 
 struct GameIntro: View {
+    @Binding var path: [Route]
+    
     var body: some View {
-        Text("Welcome to the Swift Challenge 25 Game!")
+        Text("Welcome to the Swift Challenge 26 Game!")
             .font(.largeTitle)
             .padding()
+        
+        Button {
+            path.append(.game3)
+        } label: {
+            Rectangle()
+                .frame(width: 200, height: 50)
+                .foregroundColor(.blue)
+                .cornerRadius(10)
+                .overlay(
+                    Text("game")
+                        .foregroundColor(.white)
+                )
+        }
     }
 }

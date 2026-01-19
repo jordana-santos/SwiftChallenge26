@@ -13,7 +13,25 @@ struct HomePage: View {
     var body: some View {
         NavigationStack(path: $path){
             VStack(){
+                Image("teste")
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 50, height: 50)
+                
                 Text("Home Page")
+                
+                Button {
+                    path.append(.story)
+                } label: {
+                    Rectangle()
+                        .frame(width: 200, height: 50)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("story page")
+                                .foregroundColor(.white)
+                        )
+                }
             }
             .navigationDestination(for: Route.self) { page in
                 page.view(

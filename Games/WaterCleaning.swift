@@ -8,7 +8,10 @@
 import SwiftUI
 
 struct waterCleaning: View {
+    @Binding var path: [Route]
+    
     var body: some View {
         Text("Hello, World!")
+        
     }
 }
