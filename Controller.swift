@@ -22,7 +22,8 @@ enum Route: String, Hashable, Codable, RawRepresentable {
 extension Route {
     @ViewBuilder
     func view(
-        path: Binding<[Route]>
+        path: Binding<[Route]>,
+        introPage: Binding <Int>
         
     ) -> some View {
         switch self {
@@ -33,10 +34,10 @@ extension Route {
             StoryPage(path: path)
             
         case .map:
-            Map(path: path)
+            Map(path: path, introPage: introPage)
             
         case .gameIntro:
-            GameIntro(path: path)
+            GameIntro(path: path, introPage: introPage)
             
         case .game1:
             waterCleaning(path: path)

@@ -9,20 +9,95 @@ import SwiftUI
 
 struct Map: View {
     @Binding var path: [Route]
+    @Binding var introPage: Int
+    
     
     var body: some View {
-        Text("Map")
-        Button {
-            path.append(.gameIntro)
-        } label: {
-            Rectangle()
-                .frame(width: 200, height: 50)
-                .foregroundColor(.blue)
-                .cornerRadius(10)
-                .overlay(
-                    Text("game intro")
-                        .foregroundColor(.white)
-                )
+        VStack(){
+            Button {
+                if introPage == 0 {
+                    path.append(.gameIntro)
+                }
+            } label: {
+                if introPage == 0 {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 1")
+                                .foregroundColor(.white)
+                        )
+                } else {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.gray)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 1")
+                                .foregroundColor(.white)
+                        )
+                }
+                
+            }
+            
+            Button {
+                if introPage == 1 {
+                    path.append(.gameIntro)
+                }
+            } label: {
+                if introPage == 1 {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 2")
+                                .foregroundColor(.white)
+                        )
+                } else {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.gray)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 2")
+                                .foregroundColor(.white)
+                        )
+                }
+                
+            }
+            
+            Button {
+                if introPage == 2 {
+                    path.append(.gameIntro)
+                }
+            } label: {
+                if introPage == 2 {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 3")
+                                .foregroundColor(.white)
+                        )
+                } else {
+                    Rectangle()
+                        .frame(width: 50, height: 50)
+                        .foregroundColor(.gray)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("game 3")
+                                .foregroundColor(.white)
+                        )
+                }
+                
+            }
         }
+        
+        
+        
+        
     }
 }

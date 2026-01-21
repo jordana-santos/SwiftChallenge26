@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomePage: View {
     @State private var path: [Route] = []
+    @State var introPage: Int = 0
     
     var body: some View {
         NavigationStack(path: $path){
@@ -19,6 +20,8 @@ struct HomePage: View {
                     .frame(width: 50, height: 50)
                 
                 Text("Home Page")
+                    .padding(10)
+                    .font(.title)
                 
                 Button {
                     path.append(.story)
@@ -35,7 +38,8 @@ struct HomePage: View {
             }
             .navigationDestination(for: Route.self) { page in
                 page.view(
-                    path: $path
+                    path: $path,
+                    introPage: $introPage
                 )
             }
         }
