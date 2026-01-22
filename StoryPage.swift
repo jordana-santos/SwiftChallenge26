@@ -13,15 +13,16 @@ struct StoryPage: View {
     
     var body: some View {
         VStack(){
-            Rectangle()
-                .frame(width: 150, height: 150)
-                .foregroundColor(.green)
-            
-            if (currentPage < 3) {
-                Text(texts()[currentPage])
-                    .padding(30)
+            ScrollView(){
+                Rectangle()
+                    .frame(width: 150, height: 150)
+                    .foregroundColor(.green)
+                
+                if (currentPage < 3) {
+                    Text(texts()[currentPage])
+                        .padding(30)
+                }
             }
-            
             Spacer()
             
             Button {
@@ -31,16 +32,15 @@ struct StoryPage: View {
                     path.append(.map)
                 }
             } label: {
-                Rectangle()
-                    .frame(width: .infinity, height: 50)
-                    .foregroundColor(.blue)
-                    .cornerRadius(10)
-                    .padding(15)
-                    .overlay(
-                        Text("Continue")
-                            .foregroundColor(.white)
-                    )
+                Text("Continue")
+                    .foregroundColor(.black)
+                    .frame(maxWidth: .infinity)
+                    .frame(height: 50)
             }
+            .padding()
+            .buttonStyle(.glass)
+            .tint(.blue) //n ta pegando a cor
+            
         }
     }
     

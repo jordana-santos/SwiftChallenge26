@@ -21,7 +21,7 @@ struct Map: View {
             } label: {
                 if introPage == 0 {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.blue)
                         .cornerRadius(10)
                         .overlay(
@@ -30,7 +30,7 @@ struct Map: View {
                         )
                 } else {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.gray)
                         .cornerRadius(10)
                         .overlay(
@@ -48,7 +48,7 @@ struct Map: View {
             } label: {
                 if introPage == 1 {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.blue)
                         .cornerRadius(10)
                         .overlay(
@@ -57,7 +57,7 @@ struct Map: View {
                         )
                 } else {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.gray)
                         .cornerRadius(10)
                         .overlay(
@@ -75,7 +75,7 @@ struct Map: View {
             } label: {
                 if introPage == 2 {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.blue)
                         .cornerRadius(10)
                         .overlay(
@@ -84,7 +84,7 @@ struct Map: View {
                         )
                 } else {
                     Rectangle()
-                        .frame(width: 50, height: 50)
+                        .frame(width: 70, height: 70)
                         .foregroundColor(.gray)
                         .cornerRadius(10)
                         .overlay(
