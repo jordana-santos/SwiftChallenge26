@@ -12,33 +12,32 @@ struct waterCleaning: View {
     @State private var position: CGPoint = CGPoint(x: 82, y: 81)
     @State private var position1: CGPoint = CGPoint(x: 100, y: 40)
     @State private var position2: CGPoint = CGPoint(x: 50, y: 50)
-    @State var target = CGPoint(x: 130, y: 0)
-    @State var tolerance: CGFloat = 10
-    
-    var reachedTarget: Bool {
-        abs(position.x - target.x) < tolerance && abs(position.y - target.y) < tolerance
-    }
+    @State private var isShowing: Bool = true
+    @State private var isShowing1: Bool = true
+    @State private var isShowing2: Bool = true
  
     var body: some View {
         VStack(){
-            if !reachedTarget {
+            if isShowing {
                 Image("teste")
-                    .draggable(position: $position)
+                    .draggable(position: $position, isShowing: $isShowing)
                     .frame(width: 50, height: 50)
             }
-            
-            Image("pedra")
-                .frame(width: 50, height: 50)
-                .draggable(position: $position1)
-            
-            Image("porta")
-                .frame(width: 50, height: 50)
-                .draggable(position: $position2)
-            
+            if isShowing1 {
+                Image("pedra")
+                    .frame(width: 50, height: 50)
+                    .draggable(position: $position1, isShowing: $isShowing1)
+            }
+            if isShowing2 {
+                Image("porta")
+                    .frame(width: 50, height: 50)
+                    .draggable(position: $position2, isShowing: $isShowing2)
+            }
+
             Rectangle()
                 .frame(width: 10, height: 10)
                 .foregroundColor(.gray)
-                .offset(x: 130, y: 0)
+                .position(x: 100, y: 0)
         }
         .navigationTitle(Text("Water Cleaning"))
         Spacer()
