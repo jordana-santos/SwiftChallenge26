@@ -25,6 +25,7 @@ struct HomePage: View {
                 
                 Button {
                     path.append(.story)
+                    
                 } label: {
                     Rectangle()
                         .frame(width: 200, height: 50)

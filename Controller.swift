@@ -39,8 +39,9 @@ extension Route {
         case .gameIntro:
             GameIntro(path: path, introPage: introPage)
             
+            
         case .game1:
-            waterCleaning(path: path)
+            WaterCleaningView()
             
         case .game2:
             Boats(path: path)
@@ -52,4 +53,12 @@ extension Route {
             FinalPage(path: path)
         }
     }
+    
+//    func makeScene() -> SKScene {
+//        switch self {
+//        
+//        }
+//    }
 }
+
+
