@@ -40,7 +40,6 @@ struct FinalPage: View {
                     )
             }
         }
-        
-        
+        .navigationBarBackButtonHidden(true)
     }
 }

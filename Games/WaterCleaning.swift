@@ -12,26 +12,23 @@
 //    @State private var position: CGPoint = CGPoint(x: 82, y: 81)
 //    @State private var position1: CGPoint = CGPoint(x: 100, y: 40)
 //    @State private var position2: CGPoint = CGPoint(x: 50, y: 50)
-//    @State private var isShowing: Bool = true
-//    @State private var isShowing1: Bool = true
-//    @State private var isShowing2: Bool = true
 // 
 //    var body: some View {
 //        VStack(){
 //            if isShowing {
 //                Image("teste")
-//                    .draggable(position: $position, isShowing: $isShowing)
+//                    .draggable(position: $position)
 //                    .frame(width: 50, height: 50)
 //            }
 //            if isShowing1 {
 //                Image("pedra")
 //                    .frame(width: 50, height: 50)
-//                    .draggable(position: $position1, isShowing: $isShowing1)
+//                    .draggable(position: $position1)
 //            }
 //            if isShowing2 {
 //                Image("porta")
 //                    .frame(width: 50, height: 50)
-//                    .draggable(position: $position2, isShowing: $isShowing2)
+//                    .draggable(position: $position2)
 //            }
 //
 //            Rectangle()
@@ -39,13 +36,8 @@
 //                .foregroundColor(.gray)
 //                .position(x: 100, y: 0)
 //        }
-//        .navigationTitle(Text("Water Cleaning"))
 //        Spacer()
-//        
-//       
-//        
-//        
-//        
+//
 //        Button {
 //            path.append(.map)
 //        } label: {
@@ -66,25 +58,62 @@ import SpriteKit
 import SwiftUI
 
 struct WaterCleaningView: View {
-    @State private var scene: SKScene = waterCleaning(size: CGSize())
+    @State private var scene = waterCleaning(size: CGSize())
+    @State private var showButton: Bool = false
+    @Binding var path: [Route]
     
     var body: some View {
         GeometryReader { geometry in
             let size = CGSize(width: geometry.size.width, height: geometry.size.height)
-            VStack {
-                //let waterCleaning = scene
+            VStack(){
+                Rectangle()
+                    .frame(width: 390, height: 70)
+                    .foregroundColor(.blue)
+                    .cornerRadius(10)
+                    .overlay(
+                        Text("Drag the trash out of the water and into the trash can.")
+                            .foregroundColor(.white)
+                            .multilineTextAlignment(.center)
+                            .lineLimit(nil)
+                            .padding(.horizontal)
+                    )
+                    
                 
-                SpriteView(scene: applySize(scene: scene, size: size))
-                   // .frame(width: 900, height: 900)
-                
+                ZStack(){
+                    SpriteView(scene: applySize(scene: scene, size: size))
+                    
+                    if showButton {
+                        VStack(){
+                            Text("Thanks! Now I can swim freely!")
+                                .foregroundColor(.black)
+                            
+                            Button {
+                                path.append(.map)
+                           } label: {
+                               Rectangle()
+                                   .frame(width: 200, height: 50)
+                                   .foregroundColor(.blue)
+                                   .cornerRadius(10)
+                                   .overlay(
+                                       Text("Continue")
+                                           .foregroundColor(.white)
+                                   )
+                           }
+                        }
+                    }
+                }
             }
+            .navigationBarBackButtonHidden(true)
         }
-        
     }
     
-    func applySize(scene: SKScene, size:CGSize) -> SKScene {
+    func applySize(scene: waterCleaning, size:CGSize) -> SKScene {
         scene.scaleMode = .resizeFill
         scene.size = size
+        
+        scene.completed = {
+            showButton = true
+        }
         
         return scene
     }
@@ -94,22 +123,29 @@ class waterCleaning: SKScene {
     let can = SKSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
     let bag = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 50))
     let straw = SKSpriteNode(color: .green, size: CGSize(width: 50, height: 50))
+    let can2 = SKSpriteNode(color: .orange, size: CGSize(width: 50, height: 50))
+    let bag2 = SKSpriteNode(color: .yellow, size: CGSize(width: 50, height: 50))
     let target = CGPoint(x: 350, y: 80)
     let tolerance : CGFloat = 120
     var dragging: SKSpriteNode?
     let trashCan = SKSpriteNode(color: .gray, size: CGSize(width: 60, height: 80))
+    var counter = CGFloat(5)
+    var completed: (() -> Void)?
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
-        can.position = CGPoint(x: 350, y: 700)
-        bag.position = CGPoint(x: 150, y: 400)
-//        straw.anchorPoint = CGPoint(x: 0, y: 0)
+        can.position = CGPoint(x: 350, y: 650)
+        can2.position = CGPoint(x: 100, y: 350)
+        bag.position = CGPoint(x: 150, y: 580)
+        bag2.position = CGPoint(x: 80, y: 120)
         straw.position = CGPoint(x: 200, y: 200)
-        trashCan.position = CGPoint(x: 350, y: 80)
+        trashCan.position = CGPoint(x: 360, y: 70)
         
         addChild(trashCan)
         addChild(can)
+        addChild(can2)
         addChild(bag)
+        addChild(bag2)
         addChild(straw)
     }
     
@@ -138,14 +174,45 @@ class waterCleaning: SKScene {
         
         if abs(can.position.x - target.x) <= tolerance && abs(can.position.y - target.y) <= tolerance {
             can.removeFromParent()
+            counter -= 1
+            can.position.x = 1000
+            GameCompleted()
+        }
+        
+        if abs(can2.position.x - target.x) <= tolerance && abs(can2.position.y - target.y) <= tolerance {
+            can2.removeFromParent()
+            counter -= 1
+            can2.position.x = 1000
+            GameCompleted()
         }
         
         if abs(bag.position.x - target.x) <= tolerance && abs(bag.position.y - target.y) <= tolerance {
             bag.removeFromParent()
+            counter -= 1
+            bag.position.x = 1000
+            GameCompleted()
+        }
+        
+        if abs(bag2.position.x - target.x) <= tolerance && abs(bag2.position.y - target.y) <= tolerance {
+            bag2.removeFromParent()
+            counter -= 1
+            bag2.position.x = 1000
+            GameCompleted()
         }
         
         if abs(straw.position.x - target.x) <= tolerance && abs(straw.position.y - target.y) <= tolerance {
             straw.removeFromParent()
+            counter -= 1
+            straw.position.x = 1000
+            GameCompleted()
+        }
+        
+        
+    }
+    
+    func GameCompleted() {
+        if counter == 0 {
+            completed?()
         }
     }
 }

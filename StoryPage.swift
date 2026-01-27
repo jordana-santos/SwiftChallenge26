@@ -14,20 +14,28 @@ struct StoryPage: View {
     var body: some View {
         VStack(){
             ScrollView(){
-                Rectangle()
-                    .frame(width: 150, height: 150)
-                    .foregroundColor(.green)
+                if currentPage == 2 || currentPage == 3 {
+                    Rectangle()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.brown)
+                } else {
+                    Rectangle()
+                        .frame(width: 150, height: 150)
+                        .foregroundColor(.green)
+                }
                 
-                if (currentPage < 3) {
+                
+                if (currentPage < 5) {
                     Text(texts()[currentPage])
                         .padding(30)
+                        //.font(.system(size: 20))
                 }
             }
             Spacer()
             
             Button {
                 currentPage += 1
-                if currentPage == 3 {
+                if currentPage == 5 {
                     currentPage = 0
                     path.append(.map)
                 }
@@ -42,25 +50,30 @@ struct StoryPage: View {
             .tint(.blue) //n ta pegando a cor
             
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func texts() -> [String]{
         let page1 = """
-                Hi! My name is (…)! I live in Vitória, my favorite place in the world. Here, I have everything I could ever want: water at the perfect temperature, lots of food, and many friends. Since this is an island, there are many bridges, piers, and rocks in the water. That’s where the yummiest seaweed grows!
-
-                As you may have noticed, I’m a green sea turtle! All green sea turtles love to eat seaweed, and that’s why we have this beautiful color. We can live for about 80 years, and we weigh around 230 kilos. Not bad, right?
+                Hi! My name is (turtle 1)! I live in Vitória - Brazil, my favorite place in the world. The water is just right, there's lots of food, and plenty of friends. Since this is an island, there are many bridges, piers, and rocks in the water. That’s where the yummiest seaweed grows!
                 """
         
         let page2 = """
-                Hello! My name is (…) and I’m a loggerhead sea turtle! I live in the open sea, but I always swim back to the coast to eat. That’s where the best crustaceans are!
-                
-                We loggerhead sea turtles have very strong jaws, shaped a little like a bird’s beak. They help us crunch our favorite food: crustaceans, of course! We can live for around 70 years and weigh about 180 kilos!
+                As you may have noticed, I’m a green sea turtle! We love to eat seaweed, and that’s why we have this beautiful color. We can live for about 80 years, and we weigh around 230 kilos. Not bad, right?
                 """
         
         let page3 = """
-                Today is such a beautiful day, isn’t it? I’m feeling full of energy! I’m planning to go see (…) by lunchtime, but it’s quite a long journey. Do you think you could help me get there?
+                Hello! My name is (turtle 2) and I’m a loggerhead sea turtle! I live in the open sea, but I always swim back to the coast to eat. That’s where the best crustaceans are!
                 """
-        let textList: [String] = [page1, page2, page3]
+        
+        let page4 = """
+                We loggerhead sea turtles have very strong jaws, shaped a little like a bird’s beak. They help us crunch our favorite food: crustaceans, of course! We can live for around 70 years and weigh about 180 kilos!
+                """
+        
+        let page5 = """
+                What a beautiful day! I’m full of energy. I want to visit (turtle 2) before lunch, but it’s quite a long journey. Do you think you could help me get there?
+                """
+        let textList: [String] = [page1, page2, page3, page4, page5]
         return textList
     }
     

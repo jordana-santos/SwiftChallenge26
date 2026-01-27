@@ -35,7 +35,7 @@ struct GameIntro: View {
                 }
             } label: {
                 Rectangle()
-                    .frame(width: .infinity, height: 50)
+                    .frame(width: 380, height: 50)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .padding(15)
@@ -45,16 +45,12 @@ struct GameIntro: View {
                     )
             }
         }
-        
+        .navigationBarBackButtonHidden(true)
     }
     
     func texts() -> [String]{
         let intro1 = """
                 Wow! There's so much trash in the water! This place is so beautiful, it makes me sad to see it treated like this. Can you help me clean out the way?  
-                
-                ---------------------------------------
-                
-                Drag the trash out of the water and into the trash can.
                 """
         
         let intro2 = """
@@ -67,10 +63,6 @@ struct GameIntro: View {
         
         let intro3 = """
                 Finally, we made it! That was a long journey, it even made me hungry. Luckily, it’s lunchtime! 
-                
-                ---------------------------------------
-                
-                Drag each turtle species to its favorite type of food.
                 """
         let textList: [String] = [intro1, intro2, intro3]
         return textList

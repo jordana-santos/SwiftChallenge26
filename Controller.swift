@@ -41,13 +41,13 @@ extension Route {
             
             
         case .game1:
-            WaterCleaningView()
+            WaterCleaningView(path: path)
             
         case .game2:
             Boats(path: path)
             
         case .game3:
-            LunchTime(path: path)
+            LunchTimeView(path: path)
             
         case .final:
             FinalPage(path: path)

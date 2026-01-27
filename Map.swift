@@ -95,9 +95,6 @@ struct Map: View {
                 
             }
         }
-        
-        
-        
-        
+        .navigationBarBackButtonHidden(true)
     }
 }
