@@ -77,10 +77,14 @@ class Boats: SKScene {
     let boat3 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 40))
     
     let tolerance = CGFloat(40)
-    var counter = CGFloat(5)
     var completed: (() -> Void)?
     var isGlitching = false
     var isMoving = true
+    
+    enum Direction {
+        case left
+        case right
+    }
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
@@ -94,16 +98,19 @@ class Boats: SKScene {
         turtle2.size = CGSize(width: 70, height: 70)
         turtle2.zRotation = 120
         
+        boat1.userData = [:]
+        boat2.userData = [:]
+        boat3.userData = [:]
+        
         addChild(turtle1)
         addChild(turtle2)
         addChild(boat1)
         addChild(boat2)
         addChild(boat3)
         
-        startLeft(node: boat1, speed: 80)
-        startRight(node: boat2, speed: 100)
-        startLeft(node: boat3, speed: 120)
-        
+        startLeft(node: boat1)
+        startRight(node: boat2)
+        startLeft(node: boat3)
         swim()
     }
     
@@ -112,42 +119,39 @@ class Boats: SKScene {
         let distance = targetY - turtle1.position.y
         let duration = TimeInterval(distance / 50)
         let move = SKAction.moveTo(y: targetY, duration: duration)
-        _ = SKAction.run { self.GameCompleted() } //nao ta indo o game completed
+        if turtle1.position.y == targetY { GameCompleted() } //nao ta indo o game completed
         
-        turtle1.run(move, withKey: "goBack")
+        turtle1.run(.sequence([.wait(forDuration: 2.0), move]))
     }
     
-    func startLeft(node: SKSpriteNode, speed: CGFloat) {
+    func startLeft(node: SKSpriteNode) {
         let leftX  = frame.minX + node.frame.width / 2
         let rightX = frame.maxX - node.frame.width / 2
+        node.userData?["direction"] = Direction.left
         
         let goingRight = true
         let targetX = goingRight ? rightX : leftX
-        let distance = abs(targetX - node.position.x)
-        let duration = TimeInterval(distance / speed)
 
-        let move = SKAction.moveTo(x: targetX, duration: duration)
+        let move = SKAction.moveTo(x: targetX, duration: 2.0)
         move.timingMode = .linear
         
         let switchDirection = SKAction.run {
-            self.startRight(node: node, speed: speed)
+            self.startRight(node: node)
         }
 
         node.run(.sequence([move, switchDirection]), withKey: "wait")
     }
     
-    func startRight(node: SKSpriteNode, speed: CGFloat) {
+    func startRight(node: SKSpriteNode) {
         let leftX  = frame.minX + node.size.width / 2
-
         let targetX = leftX
-        let distance = abs(targetX - node.position.x)
-        let duration = TimeInterval(distance / speed)
-
-        let move = SKAction.moveTo(x: targetX, duration: duration)
+        node.userData?["direction"] = Direction.right
+        
+        let move = SKAction.moveTo(x: targetX, duration: 2.0)
         move.timingMode = .linear
 
         let switchDirection = SKAction.run {
-            self.startLeft(node: node, speed: speed)
+            self.startLeft(node: node)
         }
 
         node.run(.sequence([move, switchDirection]), withKey: "wait")
@@ -172,25 +176,32 @@ class Boats: SKScene {
     
     func paused(node: SKSpriteNode) {
         node.removeAction(forKey: "wait")
-        let wait = SKAction.wait(forDuration: 4.0)
         let resume = returnMovement(node: node)
         
-        node.run(.sequence([wait, resume]))
+        node.run(.sequence([.wait(forDuration: 4.0), resume]))
     }
     
-    //retorna para o padrao
     func returnMovement(node: SKSpriteNode) -> SKAction{
         return SKAction.run {
-            if node == self.boat1 {
-                self.startLeft(node: node, speed: 80)
-                
-            } else if node == self.boat2 {
-                self.startRight(node: node, speed: 100)
-                
-            } else if  node == self.boat3 {
-                self.startLeft(node: node, speed: 150)
+            guard let direction = node.userData?["direction"] as? Direction else { return }
+            
+            switch direction {
+            case .left:
+                self.startLeft(node: node)
+            case .right:
+                self.startRight(node: node)
             }
         }
+    }
+    
+    func checkMovement(node: SKSpriteNode){
+        if isMoving {
+            let resume = returnMovement(node: node)
+            node.run(resume)
+        } else {
+            paused(node: node)
+        }
+        isMoving.toggle()
     }
     
     func colided(){
@@ -242,25 +253,12 @@ class Boats: SKScene {
         turtle1.run(sequence)
     }
     
-    func checkMovement(node: SKSpriteNode){
-        if isMoving {
-            let resume = returnMovement(node: node)
-            node.run(resume)
-        } else {
-            paused(node: node)
-        }
-        isMoving.toggle()
-    }
-    
     func GameCompleted() {
-        if counter == 0 {
-            completed?()
-        }
         let boats = [boat1, boat2, boat3]
-        
         for node in boats {
             node.removeAction(forKey: "wait")
         }
+        completed?()
     }
 }
 
