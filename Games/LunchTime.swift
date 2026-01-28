@@ -28,8 +28,7 @@ struct LunchTimeView: View {
                             .lineLimit(nil)
                             .padding(.horizontal)
                     )
-                    
-                
+ 
                 ZStack(){
                     SpriteView(scene: applySize(scene: scene, size: size))
                     
@@ -71,10 +70,9 @@ struct LunchTimeView: View {
 }
 
 class lunchTime: SKScene {
-    //let turtle1 = SKSpriteNode(imageNamed: "turtle1")
-    let turtle1 = SKSpriteNode(color: .green, size: CGSize(width: 50, height: 60))
-    let turtle2 = SKSpriteNode(color: .brown, size: CGSize(width: 50, height: 60))
-    let turtle3 = SKSpriteNode(color: .green, size: CGSize(width: 50, height: 60))
+    let turtle1 = SKSpriteNode(imageNamed: "green")
+    let turtle2 = SKSpriteNode(imageNamed: "loggerhead")
+    let turtle3 = SKSpriteNode(imageNamed: "green")
     let algae1 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
     let algae2 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
     let algae3 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
@@ -92,6 +90,10 @@ class lunchTime: SKScene {
         turtle1.position = CGPoint(x: 100, y: 150)
         turtle2.position = CGPoint(x: 220, y: 100)
         turtle3.position = CGPoint(x: 300, y: 130)
+        turtle1.size = CGSize(width: 70, height: 70)
+        turtle2.size = CGSize(width: 60, height: 75)
+        turtle3.size = CGSize(width: 70, height: 70)
+        
         algae1.position = CGPoint(x: 80, y: 300)
         algae2.position = CGPoint(x: 200, y: 350)
         algae3.position = CGPoint(x: 100, y: 590)

@@ -54,11 +54,7 @@ struct GameIntro: View {
                 """
         
         let intro2 = """
-                Look who’s over there! (…)! Let’s invite her to have lunch with (…). There’s just one problem… there are too many boats! Can you help me stop them so I can swim through? 
-                
-                ---------------------------------------
-                
-                Click on a boat to stop it and keep it from hitting the turtle.
+                Look who’s over there! (…)! Let’s invite her to have lunch with (…). There’s just one problem… there are too many boats! Can you help me stop them so I can swim through?
                 """
         
         let intro3 = """

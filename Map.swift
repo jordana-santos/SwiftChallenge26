@@ -13,87 +13,73 @@ struct Map: View {
     
     
     var body: some View {
-        VStack(){
-            Button {
-                if introPage == 0 {
-                    path.append(.gameIntro)
-                }
-            } label: {
-                if introPage == 0 {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 1")
-                                .foregroundColor(.white)
-                        )
-                } else {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.gray)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 1")
-                                .foregroundColor(.white)
-                        )
-                }
-                
-            }
+        ZStack(){
+            Image("map2")
+                .resizable()
+                .scaledToFill()
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .ignoresSafeArea()
             
-            Button {
-                if introPage == 1 {
-                    path.append(.gameIntro)
+            VStack(){
+                Button {
+                    if introPage == 0 {
+                        path.append(.gameIntro)
+                    }
+                } label: {
+                    if introPage == 0 {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.blue)
+                            .cornerRadius(10)
+                            
+                    } else {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.gray)
+                            .cornerRadius(10)
+                    }
                 }
-            } label: {
-                if introPage == 1 {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 2")
-                                .foregroundColor(.white)
-                        )
-                } else {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.gray)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 2")
-                                .foregroundColor(.white)
-                        )
-                }
+                .offset(x: -60, y: -270)
                 
-            }
-            
-            Button {
-                if introPage == 2 {
-                    path.append(.gameIntro)
+                Button {
+                    if introPage == 1 {
+                        path.append(.gameIntro)
+                    }
+                } label: {
+                    if introPage == 1 {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.blue)
+                            .cornerRadius(10)
+                    } else {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.gray)
+                            .cornerRadius(10)
+                    }
                 }
-            } label: {
-                if introPage == 2 {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 3")
-                                .foregroundColor(.white)
-                        )
-                } else {
-                    Rectangle()
-                        .frame(width: 70, height: 70)
-                        .foregroundColor(.gray)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("game 3")
-                                .foregroundColor(.white)
-                        )
-                }
+                .offset(x: -50, y: -100)
                 
+                Button {
+                    if introPage == 2 {
+                        path.append(.gameIntro)
+                    }
+                } label: {
+                    if introPage == 2 {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.blue)
+                            .cornerRadius(10)
+                    } else {
+                        Rectangle()
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.gray)
+                            .cornerRadius(10)
+                    }
+                }
+                .offset(x: 50, y: 180)
             }
+            .zIndex(1)
         }
         .navigationBarBackButtonHidden(true)
     }
