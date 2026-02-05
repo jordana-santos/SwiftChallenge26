@@ -15,20 +15,23 @@ struct StoryPage: View {
         VStack(){
             ScrollView(){
                 if currentPage == 2 || currentPage == 3 {
-                    Rectangle()
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(.brown)
+                    Image("caretta")
+                        .resizable()
+                        .frame(width: 200, height: 150)
+                        .padding()
+                        .padding(.vertical, 30)
                 } else {
-                    Rectangle()
-                        .frame(width: 150, height: 150)
-                        .foregroundColor(.green)
+                    Image("green1")
+                        .resizable()
+                        .frame(width: 200, height: 150)
+                        .padding()
+                        .padding(.vertical, 30)
                 }
                 
                 
                 if (currentPage < 5) {
                     Text(texts()[currentPage])
                         .padding(30)
-                        //.font(.system(size: 20))
                 }
             }
             Spacer()
@@ -63,15 +66,15 @@ struct StoryPage: View {
                 """
         
         let page3 = """
-                Hello! My name is (turtle 2) and I’m a loggerhead sea turtle! I live in the open sea, but I always swim back to the coast to eat. That’s where the best crustaceans are!
+                Hello! My name is Careta and I’m a loggerhead sea turtle! I live in the open sea, but I always swim back to the coast to eat. That’s where the best crustaceans are!
                 """
         
         let page4 = """
-                We loggerhead sea turtles have very strong jaws, shaped a little like a bird’s beak. They help us crunch our favorite food: crustaceans, of course! We can live for around 70 years and weigh about 180 kilos!
+                We loggerhead sea turtles have very strong jaws, shaped like a bird’s beak. They help us crunch our favorite food: crustaceans, of course! We can live for around 70 years and weigh about 180 kilos!
                 """
         
         let page5 = """
-                What a beautiful day! I’m full of energy. I want to visit (turtle 2) before lunch, but it’s quite a long journey. Do you think you could help me get there?
+                What a beautiful day! I’m full of energy. I want to visit Careta before lunch, but it’s quite a long journey. Do you think you could help me get there?
                 """
         let textList: [String] = [page1, page2, page3, page4, page5]
         return textList

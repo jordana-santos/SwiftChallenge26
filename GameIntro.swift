@@ -13,9 +13,10 @@ struct GameIntro: View {
     
     var body: some View {
         VStack(){
-            Rectangle()
-                .frame(width: 150, height: 150)
-                .foregroundColor(.green)
+            Image("green1")
+                .resizable()
+                .frame(width: 200, height: 150)
+                .padding()
             
             if (introPage < 3) {
                 Text(texts()[introPage])
@@ -54,7 +55,7 @@ struct GameIntro: View {
                 """
         
         let intro2 = """
-                Look who’s over there! (…)! Let’s invite her to have lunch with (…). There’s just one problem… there are too many boats! Can you help me stop them so I can swim through?
+                Look who’s over there! Olga! Let’s invite her to have lunch with Careta. There’s just one problem… there are too many boats! Can you help me stop them so I can swim through?
                 """
         
         let intro3 = """

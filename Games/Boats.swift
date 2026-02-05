@@ -12,13 +12,14 @@ struct BoatsView: View {
     @State private var scene = Boats(size: CGSize())
     @State private var showButton: Bool = false
     @Binding var path: [Route]
+    @State private var startGame: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
             let size = CGSize(width: geometry.size.width, height: geometry.size.height)
             VStack(){
                 Rectangle()
-                    .frame(width: 390, height: 70)
+                    .frame(width: .infinity, height: 70)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .overlay(
@@ -28,17 +29,35 @@ struct BoatsView: View {
                             .lineLimit(nil)
                             .padding(.horizontal)
                     )
- 
+                    .padding(.horizontal, 5)
+                    
+                
                 ZStack(){
-                    SpriteView(scene: applySize(scene: scene, size: size))
+                    Button {
+                        startGame = true
+                   } label: {
+                       Rectangle()
+                           .frame(width: 200, height: 50)
+                           .foregroundColor(.blue)
+                           .cornerRadius(10)
+                           .overlay(
+                               Text("Start")
+                                   .foregroundColor(.white)
+                           )
+                   }
+                   .offset(x: 0, y: 300)
+                    
+                    if startGame {
+                        SpriteView(scene: applySize(scene: scene, size: size))
+                    }
                     
                     if showButton {
                         VStack(){
-                            Text("Hi (turtle 3)!")
+                            Text("Hi Olga!")
                                 .foregroundColor(.black)
                             
                             Button {
-                                path.append(.final)
+                                path.append(.map)
                            } label: {
                                Rectangle()
                                    .frame(width: 200, height: 50)
@@ -72,9 +91,9 @@ struct BoatsView: View {
 class Boats: SKScene {
     let turtle1 = SKSpriteNode(imageNamed: "green")
     let turtle2 = SKSpriteNode(imageNamed: "green")
-    let boat1 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 40))
-    let boat2 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 40))
-    let boat3 = SKSpriteNode(color: .blue, size: CGSize(width: 80, height: 40))
+    let boat1 = SKSpriteNode(imageNamed: "boat")
+    let boat2 = SKSpriteNode(imageNamed: "boat")
+    let boat3 = SKSpriteNode(imageNamed: "boat")
     
     let tolerance = CGFloat(40)
     var completed: (() -> Void)?
@@ -89,13 +108,16 @@ class Boats: SKScene {
     override func didMove(to view: SKView) {
         backgroundColor = .white
         turtle1.position = CGPoint(x: frame.midX, y: 50)
-        turtle2.position = CGPoint(x: 310, y: 650)
+        turtle2.position = CGPoint(x: 310, y: frame.maxY - 50)
         boat1.position = CGPoint(x: 50, y: 200)
         boat2.position = CGPoint(x: 360, y: 350)
         boat3.position = CGPoint(x: 50, y: 500)
         
         turtle1.size = CGSize(width: 70, height: 70)
         turtle2.size = CGSize(width: 70, height: 70)
+        boat1.size = CGSize(width: 120, height: 50)
+        boat2.size = CGSize(width: 120, height: 50)
+        boat3.size = CGSize(width: 120, height: 50)
         turtle2.zRotation = 120
         
         boat1.userData = [:]
@@ -119,9 +141,8 @@ class Boats: SKScene {
         let distance = targetY - turtle1.position.y
         let duration = TimeInterval(distance / 50)
         let move = SKAction.moveTo(y: targetY, duration: duration)
-        if turtle1.position.y == targetY { GameCompleted() } //nao ta indo o game completed
         
-        turtle1.run(.sequence([.wait(forDuration: 2.0), move]))
+        turtle1.run(.sequence([.wait(forDuration: 0.5), move]))
     }
     
     func startLeft(node: SKSpriteNode) {
@@ -132,7 +153,7 @@ class Boats: SKScene {
         let goingRight = true
         let targetX = goingRight ? rightX : leftX
 
-        let move = SKAction.moveTo(x: targetX, duration: 2.0)
+        let move = SKAction.moveTo(x: targetX, duration: 2.5)
         move.timingMode = .linear
         
         let switchDirection = SKAction.run {
@@ -147,7 +168,7 @@ class Boats: SKScene {
         let targetX = leftX
         node.userData?["direction"] = Direction.right
         
-        let move = SKAction.moveTo(x: targetX, duration: 2.0)
+        let move = SKAction.moveTo(x: targetX, duration: 2.5)
         move.timingMode = .linear
 
         let switchDirection = SKAction.run {
@@ -162,7 +183,7 @@ class Boats: SKScene {
         let location = touch.location(in: self)
 
         let touched = nodes(at: location)
-
+        
         if touched.contains(boat1) {
             checkMovement(node: boat1)
         }
@@ -178,7 +199,7 @@ class Boats: SKScene {
         node.removeAction(forKey: "wait")
         let resume = returnMovement(node: node)
         
-        node.run(.sequence([.wait(forDuration: 4.0), resume]))
+        node.run(.sequence([.wait(forDuration: 3.0), resume]))
     }
     
     func returnMovement(node: SKSpriteNode) -> SKAction{
@@ -216,6 +237,7 @@ class Boats: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         colided()
+        if turtle1.position.y == frame.maxY - 50 { GameCompleted() }
     }
     
     func glitch() {
@@ -237,7 +259,7 @@ class Boats: SKScene {
     func goBack(){
         turtle1.removeAction(forKey: "goBack")
 
-        let swimBack = SKAction.moveBy(x: 0, y: -20, duration: 0.2)
+        let swimBack = SKAction.moveBy(x: 0, y: -30, duration: 0.3)
         swimBack.timingMode = .easeOut
 
         let resume = SKAction.run {
@@ -246,7 +268,7 @@ class Boats: SKScene {
 
         let sequence = SKAction.sequence([
             swimBack,
-            .wait(forDuration: 0.2),
+            .wait(forDuration: 0.3),
             resume
         ])
 
@@ -256,7 +278,7 @@ class Boats: SKScene {
     func GameCompleted() {
         let boats = [boat1, boat2, boat3]
         for node in boats {
-            node.removeAction(forKey: "wait")
+            node.removeAllActions()
         }
         completed?()
     }

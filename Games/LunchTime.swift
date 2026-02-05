@@ -18,7 +18,7 @@ struct LunchTimeView: View {
             let size = CGSize(width: geometry.size.width, height: geometry.size.height)
             VStack(){
                 Rectangle()
-                    .frame(width: 390, height: 70)
+                    .frame(width: .infinity, height: 70)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .overlay(
@@ -73,11 +73,11 @@ class lunchTime: SKScene {
     let turtle1 = SKSpriteNode(imageNamed: "green")
     let turtle2 = SKSpriteNode(imageNamed: "loggerhead")
     let turtle3 = SKSpriteNode(imageNamed: "green")
-    let algae1 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
-    let algae2 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
-    let algae3 = SKSpriteNode(color: .systemGreen, size: CGSize(width: 30, height: 40))
-    let crustaceans1 = SKSpriteNode(color: .systemBlue, size: CGSize(width: 30, height: 40))
-    let crustaceans2 = SKSpriteNode(color: .systemBlue, size: CGSize(width: 30, height: 40))
+    let algae1 = SKSpriteNode(imageNamed: "algae")
+    let algae2 = SKSpriteNode(imageNamed: "algae")
+    let algae3 = SKSpriteNode(imageNamed: "algae")
+    let crustaceans1 = SKSpriteNode(imageNamed: "crustaceans")
+    let crustaceans2 = SKSpriteNode(imageNamed: "crustaceans")
     
     let target = CGPoint(x: 350, y: 80)
     let tolerance : CGFloat = 50
@@ -90,24 +90,29 @@ class lunchTime: SKScene {
         turtle1.position = CGPoint(x: 100, y: 150)
         turtle2.position = CGPoint(x: 220, y: 100)
         turtle3.position = CGPoint(x: 300, y: 130)
-        turtle1.size = CGSize(width: 70, height: 70)
-        turtle2.size = CGSize(width: 60, height: 75)
-        turtle3.size = CGSize(width: 70, height: 70)
-        
         algae1.position = CGPoint(x: 80, y: 300)
         algae2.position = CGPoint(x: 200, y: 350)
         algae3.position = CGPoint(x: 100, y: 590)
         crustaceans1.position = CGPoint(x: 250, y: 500)
         crustaceans2.position = CGPoint(x: 300, y: 600)
         
-        addChild(turtle1)
-        addChild(turtle2)
-        addChild(turtle3)
+        turtle1.size = CGSize(width: 70, height: 70)
+        turtle2.size = CGSize(width: 60, height: 75)
+        turtle3.size = CGSize(width: 70, height: 70)
+        algae1.size = CGSize(width: 40, height: 50)
+        algae2.size = CGSize(width: 40, height: 50)
+        algae3.size = CGSize(width: 40, height: 50)
+        crustaceans1.size = CGSize(width: 50, height: 50)
+        crustaceans2.size = CGSize(width: 50, height: 50)
+        
         addChild(algae1)
         addChild(algae2)
         addChild(algae3)
         addChild(crustaceans1)
         addChild(crustaceans2)
+        addChild(turtle1)
+        addChild(turtle2)
+        addChild(turtle3)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?){

@@ -1,3 +1,11 @@
+//
+//  waterCleaning.swift
+//  SwiftChallenge25
+//
+//  Created by Jordana Lourenço Santos on 02/02/26.
+//
+
+
 ////
 ////  waterCleaning.swift
 ////  SwiftChallenge25
@@ -120,26 +128,36 @@ struct WaterCleaningView: View {
 }
 
 class waterCleaning: SKScene {
-    let can = SKSpriteNode(color: .red, size: CGSize(width: 50, height: 50))
-    let bag = SKSpriteNode(color: .blue, size: CGSize(width: 50, height: 50))
-    let straw = SKSpriteNode(color: .green, size: CGSize(width: 50, height: 50))
-    let can2 = SKSpriteNode(color: .orange, size: CGSize(width: 50, height: 50))
-    let bag2 = SKSpriteNode(color: .yellow, size: CGSize(width: 50, height: 50))
+    let can = SKSpriteNode(imageNamed: "can")
+    let bag = SKSpriteNode(imageNamed: "bag")
+    let straw = SKSpriteNode(imageNamed: "straw")
+    let can2 = SKSpriteNode(imageNamed: "can")
+    let bag2 = SKSpriteNode(imageNamed: "bag")
     let target = CGPoint(x: 350, y: 80)
     let tolerance : CGFloat = 120
     var dragging: SKSpriteNode?
-    let trashCan = SKSpriteNode(color: .gray, size: CGSize(width: 60, height: 80))
+    let trashCan = SKSpriteNode(imageNamed: "trash")
     var counter = CGFloat(5)
     var completed: (() -> Void)?
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
-        can.position = CGPoint(x: 350, y: 650)
+        can.position = CGPoint(x: 350, y: 450)
         can2.position = CGPoint(x: 100, y: 350)
         bag.position = CGPoint(x: 150, y: 580)
         bag2.position = CGPoint(x: 80, y: 120)
         straw.position = CGPoint(x: 200, y: 200)
-        trashCan.position = CGPoint(x: 360, y: 70)
+        trashCan.position = CGPoint(x: 350, y: 70)
+        
+        can.size = CGSize(width: 50, height: 70)
+        can2.size = CGSize(width: 50, height: 70)
+        bag.size = CGSize(width: 70, height: 90)
+        bag2.size = CGSize(width: 70, height: 90)
+        straw.size = CGSize(width: 50, height: 60)
+        trashCan.size = CGSize(width: 80, height: 120)
+        
+        can2.zRotation = 120
+        bag2.zRotation = 80
         
         addChild(trashCan)
         addChild(can)

@@ -16,10 +16,10 @@ struct FinalPage: View {
             """
         VStack(){
             HStack(){
-                Rectangle()
-                    .frame(width: 70, height: 70)
-                    .foregroundColor(.green)
-                    .padding(10)
+                Image("green1")
+                    .resizable()
+                    .frame(width: 80, height: 60)
+                    .padding()
                 
                 Text(text)
                     .padding(.horizontal, 10)

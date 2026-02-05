@@ -24,7 +24,7 @@ struct HomePage: View {
                     .font(.title)
                 
                 Button {
-                    path.append(.game2)
+                    path.append(.story)
                     
                 } label: {
                     Rectangle()
@@ -32,7 +32,7 @@ struct HomePage: View {
                         .foregroundColor(.blue)
                         .cornerRadius(10)
                         .overlay(
-                            Text("story page")
+                            Text("start")
                                 .foregroundColor(.white)
                         )
                 }
