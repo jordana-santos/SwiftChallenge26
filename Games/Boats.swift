@@ -15,11 +15,11 @@ struct BoatsView: View {
     @State private var startGame: Bool = false
     
     var body: some View {
-        GeometryReader { geometry in
-            let size = CGSize(width: geometry.size.width, height: geometry.size.height)
+        GeometryReader { geo in
+            let size = CGSize(width: geo.size.width, height: geo.size.height)
             VStack(){
                 Rectangle()
-                    .frame(width: .infinity, height: 70)
+                    .frame(width: geo.size.width, height: geo.size.height)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .overlay(
@@ -27,7 +27,7 @@ struct BoatsView: View {
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                            .padding(.horizontal)
+                            .padding(.horizontal, 10)
                     )
                     .padding(.horizontal, 5)
                     
@@ -107,17 +107,18 @@ class Boats: SKScene {
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
-        turtle1.position = CGPoint(x: frame.midX, y: 50)
-        turtle2.position = CGPoint(x: 310, y: frame.maxY - 50)
-        boat1.position = CGPoint(x: 50, y: 200)
-        boat2.position = CGPoint(x: 360, y: 350)
-        boat3.position = CGPoint(x: 50, y: 500)
+        turtle1.position = relPos(x: 0.5, y: 0.06)
+        turtle2.position = relPos(x: 0.85, y: 0.94)
+        boat1.position = relPos(x: 0.12, y: 0.3)
+        boat2.position = relPos(x: 0.88, y: 0.55)
+        boat3.position = relPos(x: 0.12, y: 0.8)
+
+        turtle1.size = relSize(w: 0.18, h: 0.1)
+        turtle2.size = relSize(w: 0.18, h: 0.1)
+        boat1.size = relSize(w: 0.3, h: 0.06)
+        boat2.size = relSize(w: 0.3, h: 0.06)
+        boat3.size = relSize(w: 0.3, h: 0.06)
         
-        turtle1.size = CGSize(width: 70, height: 70)
-        turtle2.size = CGSize(width: 70, height: 70)
-        boat1.size = CGSize(width: 120, height: 50)
-        boat2.size = CGSize(width: 120, height: 50)
-        boat3.size = CGSize(width: 120, height: 50)
         turtle2.zRotation = 120
         
         boat1.userData = [:]
@@ -273,6 +274,14 @@ class Boats: SKScene {
         ])
 
         turtle1.run(sequence)
+    }
+    
+    func relPos(x: CGFloat, y: CGFloat) -> CGPoint {
+        CGPoint(x: size.width * x, y: size.height * y)
+    }
+
+    func relSize(w: CGFloat, h: CGFloat) -> CGSize {
+        CGSize(width: size.width * w, height: size.height * h)
     }
     
     func GameCompleted() {

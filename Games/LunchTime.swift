@@ -14,11 +14,11 @@ struct LunchTimeView: View {
     @Binding var path: [Route]
     
     var body: some View {
-        GeometryReader { geometry in
-            let size = CGSize(width: geometry.size.width, height: geometry.size.height)
+        GeometryReader { geo in
+            let size = CGSize(width: geo.size.width, height: geo.size.height)
             VStack(){
                 Rectangle()
-                    .frame(width: .infinity, height: 70)
+                    .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .overlay(
@@ -26,8 +26,9 @@ struct LunchTimeView: View {
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                            .padding(.horizontal)
+                            .padding(.horizontal, 10)
                     )
+                    .padding(.horizontal, 5)
  
                 ZStack(){
                     SpriteView(scene: applySize(scene: scene, size: size))
@@ -87,23 +88,24 @@ class lunchTime: SKScene {
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
-        turtle1.position = CGPoint(x: 100, y: 150)
-        turtle2.position = CGPoint(x: 220, y: 100)
-        turtle3.position = CGPoint(x: 300, y: 130)
-        algae1.position = CGPoint(x: 80, y: 300)
-        algae2.position = CGPoint(x: 200, y: 350)
-        algae3.position = CGPoint(x: 100, y: 590)
-        crustaceans1.position = CGPoint(x: 250, y: 500)
-        crustaceans2.position = CGPoint(x: 300, y: 600)
         
-        turtle1.size = CGSize(width: 70, height: 70)
-        turtle2.size = CGSize(width: 60, height: 75)
-        turtle3.size = CGSize(width: 70, height: 70)
-        algae1.size = CGSize(width: 40, height: 50)
-        algae2.size = CGSize(width: 40, height: 50)
-        algae3.size = CGSize(width: 40, height: 50)
-        crustaceans1.size = CGSize(width: 50, height: 50)
-        crustaceans2.size = CGSize(width: 50, height: 50)
+        turtle1.position = relPos(x: 0.26, y: 0.18)
+        turtle2.position = relPos(x: 0.5, y: 0.12)
+        turtle3.position = relPos(x: 0.77, y: 0.15)
+        algae1.position = relPos(x: 0.2, y: 0.5)
+        algae2.position = relPos(x: 0.7, y: 0.4)
+        algae3.position = relPos(x: 0.3, y: 0.9)
+        crustaceans1.position = relPos(x: 0.5, y: 0.65)
+        crustaceans2.position = relPos(x: 0.75, y: 0.8)
+        
+        turtle1.size = relSize(w: 0.18, h: 0.1)
+        turtle2.size = relSize(w: 0.15, h: 0.11)
+        turtle3.size = relSize(w: 0.18, h: 0.1)
+        algae1.size = relSize(w: 0.12, h: 0.1)
+        algae2.size = relSize(w: 0.12, h: 0.1)
+        algae3.size = relSize(w: 0.12, h: 0.1)
+        crustaceans1.size = relSize(w: 0.15, h: 0.1)
+        crustaceans2.size = relSize(w: 0.15, h: 0.1)
         
         addChild(algae1)
         addChild(algae2)
@@ -142,32 +144,31 @@ class lunchTime: SKScene {
         let loggerheadTarget = [crustaceans1, crustaceans2]
         
         for target in greenTarget {
-            if abs(turtle1.position.x - target.position.x) <= tolerance &&
-                   abs(turtle1.position.y - target.position.y) <= tolerance {
-                target.removeFromParent()
-                counter -= 1
-                target.position.x = 1000
-                GameCompleted()
-            }
-            
-            if abs(turtle3.position.x - target.position.x) <= tolerance &&
-                   abs(turtle3.position.y - target.position.y) <= tolerance {
-                target.removeFromParent()
-                counter -= 1
-                target.position.x = 1000
-                GameCompleted()
-            }
+            CheckDrop(turtle: turtle1, target: target)
+            CheckDrop(turtle: turtle3, target: target)
         }
         
         for target in loggerheadTarget {
-            if abs(turtle2.position.x - target.position.x) <= tolerance &&
-                   abs(turtle2.position.y - target.position.y) <= tolerance {
-                target.removeFromParent()
-                counter -= 1
-                target.position.x = 1000
-                GameCompleted()
-            }
+            CheckDrop(turtle: turtle2, target: target)
         }
+    }
+    
+    func CheckDrop(turtle: SKSpriteNode, target: SKSpriteNode){
+        if abs(turtle.position.x - target.position.x) <= tolerance &&
+               abs(turtle.position.y - target.position.y) <= tolerance {
+            target.removeFromParent()
+            counter -= 1
+            target.position.x = 5000
+            GameCompleted()
+        }
+    }
+    
+    func relPos(x: CGFloat, y: CGFloat) -> CGPoint {
+        CGPoint(x: size.width * x, y: size.height * y)
+    }
+
+    func relSize(w: CGFloat, h: CGFloat) -> CGSize {
+        CGSize(width: size.width * w, height: size.height * h)
     }
     
     func GameCompleted() {

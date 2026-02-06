@@ -24,7 +24,7 @@ struct HomePage: View {
                     .font(.title)
                 
                 Button {
-                    path.append(.story)
+                    path.append(.game3)
                     
                 } label: {
                     Rectangle()

@@ -5,63 +5,6 @@
 //  Created by Jordana Lourenço Santos on 02/02/26.
 //
 
-
-////
-////  waterCleaning.swift
-////  SwiftChallenge25
-////
-////  Created by Jordana Lourenço Santos on 19/01/26.
-////
-//
-//import SwiftUI
-//
-//struct waterCleaning: View {
-//    @Binding var path: [Route]
-//    @State private var position: CGPoint = CGPoint(x: 82, y: 81)
-//    @State private var position1: CGPoint = CGPoint(x: 100, y: 40)
-//    @State private var position2: CGPoint = CGPoint(x: 50, y: 50)
-// 
-//    var body: some View {
-//        VStack(){
-//            if isShowing {
-//                Image("teste")
-//                    .draggable(position: $position)
-//                    .frame(width: 50, height: 50)
-//            }
-//            if isShowing1 {
-//                Image("pedra")
-//                    .frame(width: 50, height: 50)
-//                    .draggable(position: $position1)
-//            }
-//            if isShowing2 {
-//                Image("porta")
-//                    .frame(width: 50, height: 50)
-//                    .draggable(position: $position2)
-//            }
-//
-//            Rectangle()
-//                .frame(width: 10, height: 10)
-//                .foregroundColor(.gray)
-//                .position(x: 100, y: 0)
-//        }
-//        Spacer()
-//
-//        Button {
-//            path.append(.map)
-//        } label: {
-//            Rectangle()
-//                .frame(width: 200, height: 50)
-//                .foregroundColor(.blue)
-//                .cornerRadius(10)
-//                .overlay(
-//                    Text("map")
-//                        .foregroundColor(.white)
-//                )
-//        }
-//    }
-//}
-//
-
 import SpriteKit
 import SwiftUI
 
@@ -71,11 +14,11 @@ struct WaterCleaningView: View {
     @Binding var path: [Route]
     
     var body: some View {
-        GeometryReader { geometry in
-            let size = CGSize(width: geometry.size.width, height: geometry.size.height)
+        GeometryReader { geo in
+            let size = CGSize(width: geo.size.width, height: geo.size.height)
             VStack(){
                 Rectangle()
-                    .frame(width: 390, height: 70)
+                    .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
                     .foregroundColor(.blue)
                     .cornerRadius(10)
                     .overlay(
@@ -83,8 +26,9 @@ struct WaterCleaningView: View {
                             .foregroundColor(.white)
                             .multilineTextAlignment(.center)
                             .lineLimit(nil)
-                            .padding(.horizontal)
+                            .padding(.horizontal, 10)
                     )
+                    .padding(.horizontal, 5)
                     
                 
                 ZStack(){
@@ -142,19 +86,19 @@ class waterCleaning: SKScene {
     
     override func didMove(to view: SKView) {
         backgroundColor = .white
-        can.position = CGPoint(x: 350, y: 450)
-        can2.position = CGPoint(x: 100, y: 350)
-        bag.position = CGPoint(x: 150, y: 580)
-        bag2.position = CGPoint(x: 80, y: 120)
-        straw.position = CGPoint(x: 200, y: 200)
-        trashCan.position = CGPoint(x: 350, y: 70)
-        
-        can.size = CGSize(width: 50, height: 70)
-        can2.size = CGSize(width: 50, height: 70)
-        bag.size = CGSize(width: 70, height: 90)
-        bag2.size = CGSize(width: 70, height: 90)
-        straw.size = CGSize(width: 50, height: 60)
-        trashCan.size = CGSize(width: 80, height: 120)
+        can.position  = relPos(x: 0.80, y: 0.75)
+        can2.position = relPos(x: 0.4, y: 0.55)
+        bag.position  = relPos(x: 0.3, y: 0.85)
+        bag2.position = relPos(x: 0.20, y: 0.3)
+        straw.position  = relPos(x: 0.75, y: 0.4)
+        trashCan.position  = relPos(x: 0.85, y: 0.1)
+
+        can.size  = relSize(w: 0.1, h: 0.08)
+        can2.size = relSize(w: 0.1, h: 0.08)
+        bag.size  = relSize(w: 0.23, h: 0.16)
+        bag2.size = relSize(w: 0.23, h: 0.16)
+        straw.size  = relSize(w: 0.11, h: 0.1)
+        trashCan.size  = relSize(w: 0.25, h: 0.2)
         
         can2.zRotation = 120
         bag2.zRotation = 80
@@ -178,7 +122,6 @@ class waterCleaning: SKScene {
         if dragging == trashCan {
             dragging = nil
         }
-     
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -190,44 +133,30 @@ class waterCleaning: SKScene {
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         dragging = nil
         
-        if abs(can.position.x - target.x) <= tolerance && abs(can.position.y - target.y) <= tolerance {
-            can.removeFromParent()
-            counter -= 1
-            can.position.x = 1000
-            GameCompleted()
-        }
-        
-        if abs(can2.position.x - target.x) <= tolerance && abs(can2.position.y - target.y) <= tolerance {
-            can2.removeFromParent()
-            counter -= 1
-            can2.position.x = 1000
-            GameCompleted()
-        }
-        
-        if abs(bag.position.x - target.x) <= tolerance && abs(bag.position.y - target.y) <= tolerance {
-            bag.removeFromParent()
-            counter -= 1
-            bag.position.x = 1000
-            GameCompleted()
-        }
-        
-        if abs(bag2.position.x - target.x) <= tolerance && abs(bag2.position.y - target.y) <= tolerance {
-            bag2.removeFromParent()
-            counter -= 1
-            bag2.position.x = 1000
-            GameCompleted()
-        }
-        
-        if abs(straw.position.x - target.x) <= tolerance && abs(straw.position.y - target.y) <= tolerance {
-            straw.removeFromParent()
-            counter -= 1
-            straw.position.x = 1000
-            GameCompleted()
-        }
-        
-        
+        CheckDrop(node: can)
+        CheckDrop(node: can2)
+        CheckDrop(node: bag)
+        CheckDrop(node: bag2)
+        CheckDrop(node: straw)
     }
     
+    func CheckDrop(node: SKSpriteNode){
+        if abs(node.position.x - target.x) <= tolerance && abs(node.position.y - target.y) <= tolerance {
+            node.removeFromParent()
+            counter -= 1
+            node.position.x = 5000
+            GameCompleted()
+        }
+    }
+    
+    func relPos(x: CGFloat, y: CGFloat) -> CGPoint {
+        CGPoint(x: size.width * x, y: size.height * y)
+    }
+
+    func relSize(w: CGFloat, h: CGFloat) -> CGSize {
+        CGSize(width: size.width * w, height: size.height * h)
+    }
+
     func GameCompleted() {
         if counter == 0 {
             completed?()
