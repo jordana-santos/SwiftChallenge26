@@ -16,43 +16,52 @@ struct LunchTimeView: View {
     var body: some View {
         GeometryReader { geo in
             let size = CGSize(width: geo.size.width, height: geo.size.height)
-            VStack(){
-                Rectangle()
-                    .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
-                    .foregroundColor(.blue)
-                    .cornerRadius(10)
-                    .overlay(
-                        Text("Drag each turtle species to its favorite type of food.")
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.horizontal, 10)
-                    )
-                    .padding(.horizontal, 5)
- 
-                ZStack(){
-                    SpriteView(scene: applySize(scene: scene, size: size))
-                    
-                    if showButton {
-                        VStack(){
-                            Text("Yummy!")
-                                .foregroundColor(.black)
-                            
-                            Button {
-                                path.append(.final)
-                           } label: {
-                               Rectangle()
-                                   .frame(width: 200, height: 50)
-                                   .foregroundColor(.blue)
-                                   .cornerRadius(10)
-                                   .overlay(
-                                       Text("Continue")
-                                           .foregroundColor(.white)
-                                   )
-                           }
+            ZStack(){
+                Image("ocean")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .frame(width: geo.size.width, height: geo.size.height)
+                
+                VStack(){
+                    Rectangle()
+                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("Drag each turtle species to its favorite type of food.")
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .padding(.horizontal, 10)
+                        )
+                        .padding(.horizontal, 5)
+     
+                    ZStack(){
+                        SpriteView(scene: applySize(scene: scene, size: size), options: .allowsTransparency)
+                        
+                        if showButton {
+                            VStack(){
+                                Text("Yummy!")
+                                    .foregroundColor(.black)
+                                
+                                Button {
+                                    path.append(.final)
+                               } label: {
+                                   Rectangle()
+                                       .frame(width: 200, height: 50)
+                                       .foregroundColor(.blue)
+                                       .cornerRadius(10)
+                                       .overlay(
+                                           Text("Continue")
+                                               .foregroundColor(.white)
+                                       )
+                               }
+                            }
                         }
                     }
                 }
+                .zIndex(1)
             }
             .navigationBarBackButtonHidden(true)
         }
@@ -87,7 +96,7 @@ class lunchTime: SKScene {
     var completed: (() -> Void)?
     
     override func didMove(to view: SKView) {
-        backgroundColor = .white
+        backgroundColor = .clear
         
         turtle1.position = relPos(x: 0.26, y: 0.18)
         turtle2.position = relPos(x: 0.5, y: 0.12)

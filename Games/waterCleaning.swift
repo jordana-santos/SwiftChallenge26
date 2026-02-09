@@ -16,44 +16,55 @@ struct WaterCleaningView: View {
     var body: some View {
         GeometryReader { geo in
             let size = CGSize(width: geo.size.width, height: geo.size.height)
-            VStack(){
-                Rectangle()
-                    .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
-                    .foregroundColor(.blue)
-                    .cornerRadius(10)
-                    .overlay(
-                        Text("Drag the trash out of the water and into the trash can.")
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.horizontal, 10)
-                    )
-                    .padding(.horizontal, 5)
-                    
+            
+            ZStack(){
+                Image("ocean")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .frame(width: geo.size.width, height: geo.size.height)
                 
-                ZStack(){
-                    SpriteView(scene: applySize(scene: scene, size: size))
+                VStack(){
+                    Rectangle()
+                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("Drag the trash out of the water and into the trash can.")
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .padding(.horizontal, 10)
+                        )
+                        .padding(.horizontal, 5)
+                        
                     
-                    if showButton {
-                        VStack(){
-                            Text("Thanks! Now I can swim freely!")
-                                .foregroundColor(.black)
+                    ZStack(){
+                        SpriteView(scene: applySize(scene: scene, size: size), options: .allowsTransparency)
                             
-                            Button {
-                                path.append(.map)
-                           } label: {
-                               Rectangle()
-                                   .frame(width: 200, height: 50)
-                                   .foregroundColor(.blue)
-                                   .cornerRadius(10)
-                                   .overlay(
-                                       Text("Continue")
-                                           .foregroundColor(.white)
-                                   )
-                           }
+                        
+                        if showButton {
+                            VStack(){
+                                Text("Thanks! Now I can swim freely!")
+                                    .foregroundColor(.black)
+                                
+                                Button {
+                                    path.append(.map)
+                               } label: {
+                                   Rectangle()
+                                       .frame(width: 200, height: 50)
+                                       .foregroundColor(.blue)
+                                       .cornerRadius(10)
+                                       .overlay(
+                                           Text("Continue")
+                                               .foregroundColor(.white)
+                                       )
+                               }
+                            }
                         }
                     }
                 }
+                .zIndex(1)
             }
             .navigationBarBackButtonHidden(true)
         }
@@ -85,7 +96,7 @@ class waterCleaning: SKScene {
     var completed: (() -> Void)?
     
     override func didMove(to view: SKView) {
-        backgroundColor = .white
+        backgroundColor = .clear
         can.position  = relPos(x: 0.80, y: 0.75)
         can2.position = relPos(x: 0.4, y: 0.55)
         bag.position  = relPos(x: 0.3, y: 0.85)

@@ -12,46 +12,55 @@ struct StoryPage: View {
     @State var currentPage: Int = 0
     
     var body: some View {
-        VStack(){
-            ScrollView(){
-                if currentPage == 2 || currentPage == 3 {
-                    Image("caretta")
-                        .resizable()
-                        .frame(width: 200, height: 150)
-                        .padding()
-                        .padding(.vertical, 30)
-                } else {
-                    Image("green1")
-                        .resizable()
-                        .frame(width: 200, height: 150)
-                        .padding()
-                        .padding(.vertical, 30)
-                }
+        GeometryReader(){ geo in
+            ZStack(){
+                Image("ocean")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .frame(width: geo.size.width, height: geo.size.height)
                 
-                
-                if (currentPage < 5) {
-                    Text(texts()[currentPage])
-                        .padding(30)
+                VStack(){
+                    ScrollView(){
+                        if currentPage == 2 || currentPage == 3 {
+                            Image("caretta")
+                                .resizable()
+                                .frame(width: 200, height: 150)
+                                .padding()
+                                .padding(.vertical, 30)
+                        } else {
+                            Image("green1")
+                                .resizable()
+                                .frame(width: 200, height: 150)
+                                .padding()
+                                .padding(.vertical, 30)
+                        }
+                        
+                        if (currentPage < 5) {
+                            Text(texts()[currentPage])
+                                .padding(30)
+                        }
+                    }
+                    Spacer()
+                    
+                    Button {
+                        currentPage += 1
+                        if currentPage == 5 {
+                            currentPage = 0
+                            path.append(.map)
+                        }
+                    } label: {
+                        Rectangle()
+                            .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
+                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
+                            .cornerRadius(10)
+                            .overlay(Text("Continue"))
+                    }
+                    .padding()
+                    .buttonStyle(.glass)
                 }
+                .zIndex(1)
             }
-            Spacer()
-            
-            Button {
-                currentPage += 1
-                if currentPage == 5 {
-                    currentPage = 0
-                    path.append(.map)
-                }
-            } label: {
-                Text("Continue")
-                    .foregroundColor(.black)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-            }
-            .padding()
-            .buttonStyle(.glass)
-            .tint(.blue) //n ta pegando a cor
-            
         }
         .navigationBarBackButtonHidden(true)
     }

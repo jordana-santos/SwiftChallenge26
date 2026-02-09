@@ -17,57 +17,66 @@ struct BoatsView: View {
     var body: some View {
         GeometryReader { geo in
             let size = CGSize(width: geo.size.width, height: geo.size.height)
-            VStack(){
-                Rectangle()
+        
+            ZStack(){
+                Image("ocean")
+                    .resizable()
+                    .scaledToFill()
+                    .ignoresSafeArea()
                     .frame(width: geo.size.width, height: geo.size.height)
-                    .foregroundColor(.blue)
-                    .cornerRadius(10)
-                    .overlay(
-                        Text("Click on a boat to stop it and keep it from hitting the turtle.")
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.horizontal, 10)
-                    )
-                    .padding(.horizontal, 5)
-                    
                 
-                ZStack(){
-                    Button {
-                        startGame = true
-                   } label: {
-                       Rectangle()
-                           .frame(width: 200, height: 50)
-                           .foregroundColor(.blue)
-                           .cornerRadius(10)
-                           .overlay(
-                               Text("Start")
-                                   .foregroundColor(.white)
-                           )
-                   }
-                   .offset(x: 0, y: 300)
+                VStack(){
+                    Rectangle()
+                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
+                        .foregroundColor(.blue)
+                        .cornerRadius(10)
+                        .overlay(
+                            Text("Click on a boat to stop it and keep it from hitting the turtle.")
+                                .foregroundColor(.white)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .padding(.horizontal, 10)
+                        )
+                        .padding(.horizontal, 5)
+
+                    Spacer()
                     
-                    if startGame {
-                        SpriteView(scene: applySize(scene: scene, size: size))
-                    }
-                    
-                    if showButton {
-                        VStack(){
-                            Text("Hi Olga!")
-                                .foregroundColor(.black)
-                            
+                    ZStack(){
+                        if !startGame {
                             Button {
-                                path.append(.map)
-                           } label: {
-                               Rectangle()
-                                   .frame(width: 200, height: 50)
-                                   .foregroundColor(.blue)
-                                   .cornerRadius(10)
-                                   .overlay(
-                                       Text("Continue")
-                                           .foregroundColor(.white)
-                                   )
-                           }
+                                startGame = true
+                            } label: {
+                                Rectangle()
+                                    .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
+                                    .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
+                                    .cornerRadius(10)
+                                    .overlay(Text("Start"))
+                            }
+                            .padding()
+                            .buttonStyle(.glass)
+                        }
+
+                        if startGame {
+                            SpriteView(scene: applySize(scene: scene, size: size), options: .allowsTransparency)
+                        }
+                        
+                        if showButton {
+                            VStack(){
+                                Text("Hi Olga!")
+                                    .foregroundColor(.black)
+                                Button {
+                                    path.append(.map)
+                               } label: {
+                                   Rectangle()
+                                       .frame(width: 200, height: 50)
+                                       .foregroundColor(.blue)
+                                       .cornerRadius(10)
+                                       .overlay(
+                                           Text("Continue")
+                                               .foregroundColor(.white)
+                                       )
+                               }
+                            }
                         }
                     }
                 }
@@ -82,6 +91,7 @@ struct BoatsView: View {
         
         scene.completed = {
             showButton = true
+            print("acabou")
         }
         
         return scene
@@ -106,7 +116,7 @@ class Boats: SKScene {
     }
     
     override func didMove(to view: SKView) {
-        backgroundColor = .white
+        backgroundColor = .clear
         turtle1.position = relPos(x: 0.5, y: 0.06)
         turtle2.position = relPos(x: 0.85, y: 0.94)
         boat1.position = relPos(x: 0.12, y: 0.3)
