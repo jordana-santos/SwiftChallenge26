@@ -24,7 +24,7 @@ struct HomePage: View {
                     .font(.title)
                 
                 Button {
-                    path.append(.game3)
+                    path.append(.story)
                     
                 } label: {
                     Rectangle()
@@ -42,6 +42,9 @@ struct HomePage: View {
                     path: $path,
                     introPage: $introPage
                 )
+            }
+            .onAppear(){
+                MusicManager.shared.playMusic()
             }
         }
     }

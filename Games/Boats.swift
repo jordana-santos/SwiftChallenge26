@@ -91,7 +91,6 @@ struct BoatsView: View {
         
         scene.completed = {
             showButton = true
-            print("acabou")
         }
         
         return scene
@@ -248,7 +247,9 @@ class Boats: SKScene {
     
     override func update(_ currentTime: TimeInterval) {
         colided()
-        if turtle1.position.y == frame.maxY - 50 { GameCompleted() }
+        if turtle1.position.y.rounded(.towardZero) == (frame.maxY - 50).rounded(.towardZero) {
+            GameCompleted()
+        }
     }
     
     func glitch() {
