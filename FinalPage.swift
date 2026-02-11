@@ -15,38 +15,41 @@ struct FinalPage: View {
             let text = """
                 Thank you for your help! Now that you know where we live, come visit us anytime! And if you don’t see us right away, don’t worry, we come up to the surface every 20 minutes to breathe. Just wait a little bit, and we’ll be there!
                 """
-            VStack(){
-                Rectangle()
-                    .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.2)
-                    .foregroundColor(.gray)
-                    .cornerRadius(10)
-                    .overlay(
-                        Text(text)
-                            .foregroundColor(.white)
-                            .multilineTextAlignment(.center)
-                            .lineLimit(nil)
-                            .padding(.horizontal, 10)
-                    )
-                    .padding(.horizontal, 10)
-                
-                Image("green1")
+            ZStack(){
+                Image("bgEnd")
                     .resizable()
-                    .frame(width: 80, height: 60)
-                    .padding()
-
+                    .scaledToFill()
+                    .ignoresSafeArea()
+                    .frame(width: geo.size.width, height: geo.size.height)
                 
-                Spacer()
-                Button {
-                    path.removeAll()
-                } label: {
+                
+                VStack(){
                     Rectangle()
-                        .frame(width: geo.size.width * 0.9, height: geo.size.height * 0.07)
-                        .foregroundColor(.blue)
+                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.2)
+                        .foregroundColor(.white)
                         .cornerRadius(10)
                         .overlay(
-                            Text("home")
-                                .foregroundColor(.white)
+                            Text(text)
+                                .foregroundColor(.black)
+                                .multilineTextAlignment(.center)
+                                .lineLimit(nil)
+                                .padding(.horizontal, 10)
+                                .font(.system(size: 17))
                         )
+                        .padding(.horizontal, 10)
+                    
+                    Spacer()
+                    Button {
+                        path.removeAll()
+                    } label: {
+                        Rectangle()
+                            .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
+                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
+                            .cornerRadius(10)
+                            .overlay(Text("Home"))
+                    }
+                    .padding()
+                    .buttonStyle(.glass)
                 }
             }
             .navigationBarBackButtonHidden(true)

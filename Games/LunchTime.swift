@@ -17,7 +17,7 @@ struct LunchTimeView: View {
         GeometryReader { geo in
             let size = CGSize(width: geo.size.width, height: geo.size.height)
             ZStack(){
-                Image("ocean")
+                Image("bgGame3")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
@@ -34,6 +34,7 @@ struct LunchTimeView: View {
                                 .multilineTextAlignment(.center)
                                 .lineLimit(nil)
                                 .padding(.horizontal, 10)
+                                .font(.system(size: 17))
                         )
                         .padding(.horizontal, 5)
      

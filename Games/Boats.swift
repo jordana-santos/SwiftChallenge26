@@ -19,7 +19,7 @@ struct BoatsView: View {
             let size = CGSize(width: geo.size.width, height: geo.size.height)
         
             ZStack(){
-                Image("ocean")
+                Image("bgGame2")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
@@ -36,6 +36,7 @@ struct BoatsView: View {
                                 .multilineTextAlignment(.center)
                                 .lineLimit(nil)
                                 .padding(.horizontal, 10)
+                                .font(.system(size: 17))
                         )
                         .padding(.horizontal, 5)
 

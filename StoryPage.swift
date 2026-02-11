@@ -14,33 +14,49 @@ struct StoryPage: View {
     var body: some View {
         GeometryReader(){ geo in
             ZStack(){
-                Image("ocean")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
+                if currentPage == 2 || currentPage == 3 {
+                    Image("bgStory2")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                } else {
+                    Image("bgStory")
+                        .resizable()
+                        .scaledToFill()
+                        .ignoresSafeArea()
+                        .frame(width: geo.size.width, height: geo.size.height)
+                }
                 
                 VStack(){
-                    ScrollView(){
-                        if currentPage == 2 || currentPage == 3 {
-                            Image("caretta")
-                                .resizable()
-                                .frame(width: 200, height: 150)
-                                .padding()
-                                .padding(.vertical, 30)
-                        } else {
-                            Image("green1")
-                                .resizable()
-                                .frame(width: 200, height: 150)
-                                .padding()
-                                .padding(.vertical, 30)
-                        }
+                    if currentPage == 2 || currentPage == 3 {
+                        Image("caretta")
+                            .resizable()
+                            .frame(width: 200, height: 150)
+                            .padding(30)
+                    } else {
+                        Image("green1")
+                            .resizable()
+                            .frame(width: 200, height: 150)
+                            .padding(30)
+                    }
+                    
+                    ZStack(){
+                        Image("bubbleBaloon")
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.4)
+                            .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
                         
                         if (currentPage < 5) {
                             Text(texts()[currentPage])
+                                .padding(.horizontal, 30)
                                 .padding(30)
+                                .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
+                                .font(.system(size: 17))
                         }
                     }
+                    
                     Spacer()
                     
                     Button {
@@ -52,7 +68,7 @@ struct StoryPage: View {
                     } label: {
                         Rectangle()
                             .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
-                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
+                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.2)
                             .cornerRadius(10)
                             .overlay(Text("Continue"))
                     }

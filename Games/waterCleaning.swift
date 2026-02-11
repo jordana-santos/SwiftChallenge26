@@ -18,7 +18,7 @@ struct WaterCleaningView: View {
             let size = CGSize(width: geo.size.width, height: geo.size.height)
             
             ZStack(){
-                Image("ocean")
+                Image("bgGame1")
                     .resizable()
                     .scaledToFill()
                     .ignoresSafeArea()
@@ -35,6 +35,7 @@ struct WaterCleaningView: View {
                                 .multilineTextAlignment(.center)
                                 .lineLimit(nil)
                                 .padding(.horizontal, 10)
+                                .font(.system(size: 17))
                         )
                         .padding(.horizontal, 5)
                         
