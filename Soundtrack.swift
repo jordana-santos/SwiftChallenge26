@@ -7,13 +7,13 @@
 import SwiftUI
 import AVFoundation
 
-class MusicManager: ObservableObject{
-    @MainActor static let shared = MusicManager()
+class Soundtrack: ObservableObject{
+    @MainActor static let shared = Soundtrack()
     var player: AVAudioPlayer?
     
     private init() {}
     
-    func playMusic() {
+    public func playMusic() {
         guard let path = Bundle.main.path(forResource: "turtlesIntro", ofType: "m4a") else {
             print("Background music file not found!")
             return
@@ -21,8 +21,8 @@ class MusicManager: ObservableObject{
         do {
             let url = URL(fileURLWithPath: path)
             player = try AVAudioPlayer(contentsOf: url)
-            player?.volume = 0.2
-            player?.numberOfLoops = -1  // Infinite looping
+            player?.volume = 0.3
+            player?.numberOfLoops = -1 
             player?.play()
 
             // Enable background playback
@@ -33,7 +33,7 @@ class MusicManager: ObservableObject{
         }
     }
     
-    func stopMusic() {
+    public func stopMusic() {
         player?.stop()
     }
 }
