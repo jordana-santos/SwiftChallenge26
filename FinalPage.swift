@@ -16,12 +16,7 @@ struct FinalPage: View {
                 Thank you for your help! Now that you know where we live, come visit us anytime! And if you don’t see us right away, don’t worry, we come up to the surface every 20 minutes to breathe. Just wait a little bit, and we’ll be there!
                 """
             ZStack(){
-                Image("bgEnd")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
-                
+                Background(bg: "bgEnd")
                 
                 VStack(){
                     Rectangle()

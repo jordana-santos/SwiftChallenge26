@@ -6,82 +6,6 @@
 //
 
 import SpriteKit
-import SwiftUI
-
-struct WaterCleaningView: View {
-    @State private var scene = waterCleaning(size: CGSize())
-    @State private var showButton: Bool = false
-    @Binding var path: [Route]
-    
-    var body: some View {
-        GeometryReader { geo in
-            let size = CGSize(width: geo.size.width, height: geo.size.height)
-            
-            ZStack(){
-                Image("bgGame1")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
-                
-                VStack(){
-                    Rectangle()
-                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("Drag the trash out of the water and into the trash can.")
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(nil)
-                                .padding(.horizontal, 10)
-                                .font(.system(size: 17))
-                        )
-                        .padding(.horizontal, 5)
-                        
-                    
-                    ZStack(){
-                        SpriteView(scene: applySize(scene: scene, size: size), options: .allowsTransparency)
-                            
-                        
-                        if showButton {
-                            VStack(){
-                                Text("Thanks! Now I can swim freely!")
-                                    .foregroundColor(.black)
-                                
-                                Button {
-                                    path.append(.map)
-                               } label: {
-                                   Rectangle()
-                                       .frame(width: 200, height: 50)
-                                       .foregroundColor(.blue)
-                                       .cornerRadius(10)
-                                       .overlay(
-                                           Text("Continue")
-                                               .foregroundColor(.white)
-                                       )
-                               }
-                            }
-                        }
-                    }
-                }
-                .zIndex(1)
-            }
-            .navigationBarBackButtonHidden(true)
-        }
-    }
-    
-    func applySize(scene: waterCleaning, size:CGSize) -> SKScene {
-        scene.scaleMode = .resizeFill
-        scene.size = size
-        
-        scene.completed = {
-            showButton = true
-        }
-        
-        return scene
-    }
-}
 
 class waterCleaning: SKScene {
     let can = SKSpriteNode(imageNamed: "can")
@@ -159,14 +83,6 @@ class waterCleaning: SKScene {
             node.position.x = 5000
             GameCompleted()
         }
-    }
-    
-    func relPos(x: CGFloat, y: CGFloat) -> CGPoint {
-        CGPoint(x: size.width * x, y: size.height * y)
-    }
-
-    func relSize(w: CGFloat, h: CGFloat) -> CGSize {
-        CGSize(width: size.width * w, height: size.height * h)
     }
 
     func GameCompleted() {

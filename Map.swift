@@ -16,11 +16,7 @@ struct Map: View {
     var body: some View {
         GeometryReader{geo in
             ZStack(){
-                Image("map")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
+                Background(bg: "map")
                 
                 VStack(){
                     //button 1

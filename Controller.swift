@@ -13,14 +13,12 @@ enum Route: String, Hashable, Codable, RawRepresentable {
     case story
     case map
     case gameIntro
-    case game1
-    case game2
-    case game3
+    case game
     case final
 }
 
 extension Route {
-    @ViewBuilder
+    @MainActor @ViewBuilder
     func view(
         path: Binding<[Route]>,
         introPage: Binding <Int>
@@ -39,15 +37,8 @@ extension Route {
         case .gameIntro:
             GameIntro(path: path, introPage: introPage)
             
-            
-        case .game1:
-            WaterCleaningView(path: path)
-            
-        case .game2:
-            BoatsView(path: path)
-            
-        case .game3:
-            LunchTimeView(path: path)
+        case .game:
+            GameView(path: path, introPage: introPage)
             
         case .final:
             FinalPage(path: path)

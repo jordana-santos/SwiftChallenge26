@@ -6,97 +6,6 @@
 //
 
 import SpriteKit
-import SwiftUI
-
-struct BoatsView: View {
-    @State private var scene = Boats(size: CGSize())
-    @State private var showButton: Bool = false
-    @Binding var path: [Route]
-    @State private var startGame: Bool = false
-    
-    var body: some View {
-        GeometryReader { geo in
-            let size = CGSize(width: geo.size.width, height: geo.size.height)
-        
-            ZStack(){
-                Image("bgGame2")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
-                
-                VStack(){
-                    Rectangle()
-                        .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
-                        .foregroundColor(.blue)
-                        .cornerRadius(10)
-                        .overlay(
-                            Text("Click on a boat to stop it and keep it from hitting the turtle.")
-                                .foregroundColor(.white)
-                                .multilineTextAlignment(.center)
-                                .lineLimit(nil)
-                                .padding(.horizontal, 10)
-                                .font(.system(size: 17))
-                        )
-                        .padding(.horizontal, 5)
-
-                    Spacer()
-                    
-                    ZStack(){
-                        if !startGame {
-                            Button {
-                                startGame = true
-                            } label: {
-                                Rectangle()
-                                    .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
-                                    .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
-                                    .cornerRadius(10)
-                                    .overlay(Text("Start"))
-                            }
-                            .padding()
-                            .buttonStyle(.glass)
-                        }
-
-                        if startGame {
-                            SpriteView(scene: applySize(scene: scene, size: size), options: .allowsTransparency)
-                        }
-                        
-                        if showButton {
-                            VStack(){
-                                Text("Hi Olga!")
-                                    .foregroundColor(.black)
-                                Button {
-                                    path.append(.map)
-                               } label: {
-                                   Rectangle()
-                                       .frame(width: 200, height: 50)
-                                       .foregroundColor(.blue)
-                                       .cornerRadius(10)
-                                       .overlay(
-                                           Text("Continue")
-                                               .foregroundColor(.white)
-                                       )
-                               }
-                            }
-                        }
-                    }
-                }
-            }
-            .navigationBarBackButtonHidden(true)
-        }
-    }
-    
-    func applySize(scene: Boats, size:CGSize) -> SKScene {
-        scene.scaleMode = .resizeFill
-        scene.size = size
-        
-        scene.completed = {
-            showButton = true
-        }
-        
-        return scene
-    }
-}
 
 class Boats: SKScene {
     let turtle1 = SKSpriteNode(imageNamed: "green")
@@ -286,14 +195,6 @@ class Boats: SKScene {
         ])
 
         turtle1.run(sequence)
-    }
-    
-    func relPos(x: CGFloat, y: CGFloat) -> CGPoint {
-        CGPoint(x: size.width * x, y: size.height * y)
-    }
-
-    func relSize(w: CGFloat, h: CGFloat) -> CGSize {
-        CGSize(width: size.width * w, height: size.height * h)
     }
     
     func GameCompleted() {

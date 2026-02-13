@@ -10,21 +10,25 @@ import SwiftUI
 struct GameIntro: View {
     @Binding var path: [Route]
     @Binding var introPage: Int
+    let text = IntroTexts()
     
     var body: some View {
         GeometryReader(){ geo in
             ZStack(){
-                Image("bgGame3")
-                    .resizable()
-                    .scaledToFill()
-                    .ignoresSafeArea()
-                    .frame(width: geo.size.width, height: geo.size.height)
+                Background(bg: "bgGame3")
                 
                 VStack(){
-                    Image("green1")
-                        .resizable()
-                        .frame(width: 200, height: 150)
-                        .padding(30)
+                    if introPage == 2{
+                        Image("happyGreen")
+                            .resizable()
+                            .frame(width: 200, height: 150)
+                            .padding(30)
+                    } else {
+                        Image("sadGreen")
+                            .resizable()
+                            .frame(width: 200, height: 150)
+                            .padding(30)
+                    }
                     
                     ZStack(){
                         Image("bubbleBaloon")
@@ -33,27 +37,16 @@ struct GameIntro: View {
                             .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.4)
                             .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
                         
-                        if (introPage < 3) {
-                            Text(texts()[introPage])
-                                .padding(.horizontal, 30)
-                                .padding(30)
-                                .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
-                                .font(.system(size: 17))
-                        }
+                        Text(text[introPage])
+                            .padding(.horizontal, 30)
+                            .padding(30)
+                            .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
+                            .font(.system(size: 17))
                     }
                     Spacer()
                     
                     Button {
-                        if introPage == 0 {
-                            path.append(.game1)
-                            introPage = 1
-                        } else if introPage == 1 {
-                            path.append(.game2)
-                            introPage = 2
-                        } else {
-                            path.append(.game3)
-                            introPage = 0
-                        }
+                        path.append(.game)
                     } label: {
                         Rectangle()
                             .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
@@ -66,23 +59,6 @@ struct GameIntro: View {
                 }
             }
         }
-
         .navigationBarBackButtonHidden(true)
-    }
-    
-    func texts() -> [String]{
-        let intro1 = """
-                Wow! There's so much trash in the water! This place is so beautiful, it makes me sad to see it treated like this. Can you help me clean out the way?  
-                """
-        
-        let intro2 = """
-                Look who’s over there! Olga! Let’s invite her to have lunch with Careta. There’s just one problem… there are too many boats! Can you help me stop them so I can swim through?
-                """
-        
-        let intro3 = """
-                Finally, we made it! That was a long journey, it even made me hungry. Luckily, it’s lunchtime! 
-                """
-        let textList: [String] = [intro1, intro2, intro3]
-        return textList
     }
 }
