@@ -33,7 +33,7 @@ struct HomePage: View {
                         
                         //start button
                         Button {
-                            path.append(.map)
+                            path.append(.story)
                         } label: {
                             Rectangle()
                                 .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
@@ -81,7 +81,9 @@ struct HomePage: View {
                         )
                     }
                     .onAppear(){
-                        Soundtrack.shared.playMusic()
+                        if Soundtrack.shared.player?.isPlaying == false {
+                            Soundtrack.shared.playMusic()
+                        }
                     }
                 }
             }

@@ -21,8 +21,7 @@ class Soundtrack: ObservableObject{
         do {
             let url = URL(fileURLWithPath: path)
             player = try AVAudioPlayer(contentsOf: url)
-            player?.volume = 0.3
-            player?.numberOfLoops = -1 
+            player?.numberOfLoops = -1
             player?.play()
 
             // Enable background playback
@@ -31,10 +30,31 @@ class Soundtrack: ObservableObject{
         } catch {
             print("Error loading background music: \(error.localizedDescription)")
         }
+        
     }
     
-    public func stopMusic() {
-        player?.stop()
+    public func setVolume(volume: Float){
+        player?.volume = volume
+    }
+    
+    public func changeVolume(volume: Int) {
+        switch volume {
+            case 0:
+                player?.stop()
+                player?.volume = 0
+            case 1:
+                player?.play()
+                player?.volume = 0.3
+            case 2:
+                player?.play()
+                player?.volume = 0.6
+            case 3:
+                player?.play()
+                player?.volume = 0.9
+            default:
+                player?.play()
+                player?.volume = 0.3
+        }
     }
 }
 
