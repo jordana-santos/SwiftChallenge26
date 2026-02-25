@@ -53,7 +53,7 @@ import SwiftUI
         """
     
     
-    if SettingsPage.shared.language == "pt" {
+    if SettingsPage.shared.isPortuguese == true {
         textList = [page1pt, page2pt, page3pt, page4pt, page5pt]
     } else {
         textList = [page1, page2, page3, page4, page5]
@@ -92,7 +92,7 @@ import SwiftUI
             Finalmente, chegamos! Foi uma viagem longa, até me deu fome. Ainda bem que é hora do almoço!
             """
     
-    if SettingsPage.shared.language == "pt" {
+    if SettingsPage.shared.isPortuguese == true {
         textList = [intro1pt, intro2pt, intro3pt]
     } else {
         textList = [intro1, intro2, intro3]
@@ -130,7 +130,7 @@ import SwiftUI
             Arraste cada espécie de tartaruga até o seu tipo de comida favorito.
             """
     
-    if SettingsPage.shared.language == "pt" {
+    if SettingsPage.shared.isPortuguese == true {
         textList = [t1pt, t2pt, t3pt]
     } else {
         textList = [t1, t2, t3]
@@ -165,7 +165,7 @@ import SwiftUI
     let t3pt = """
             Hmmm, que delícia!
             """
-    if SettingsPage.shared.language == "pt" {
+    if SettingsPage.shared.isPortuguese == true {
         textList = [t1pt, t2pt, t3pt]
     } else {
         textList = [t1, t2, t3]

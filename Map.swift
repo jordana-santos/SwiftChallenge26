@@ -11,12 +11,22 @@ struct Map: View {
     @Binding var path: [Route]
     @Binding var introPage: Int
     @State var isAnimating: Bool = false
-    
+    @State var isZooming: Bool = true
+    @State private var scale: CGFloat = 1.0
+    @State private var imageIndex = 0
+    @State private var opacity = 1.0
     
     var body: some View {
         GeometryReader{geo in
             ZStack(){
-                Background(bg: "map")
+                if introPage == 0 {
+                    Background(bg: "map")
+                } else if introPage == 1 {
+                    Background(bg: "map2")
+                } else if introPage == 2 {
+                    Background(bg: "map3")
+                }
+                
                 
                 VStack(){
                     //button 1
@@ -45,7 +55,7 @@ struct Map: View {
                         }
                     }
                     .position(
-                        x: geo.size.width * 0.3,
+                        x: geo.size.width * 0.35,
                         y: geo.size.height * 0.065
                     )
                     
@@ -79,7 +89,7 @@ struct Map: View {
                         }
                     }
                     .position(
-                        x: geo.size.width * 0.45,
+                        x: geo.size.width * 0.5,
                         y: geo.size.height * 0.01
                     )
                     
@@ -109,15 +119,41 @@ struct Map: View {
                         }
                     }
                     .position(
-                        x: geo.size.width * 0.7,
-                        y: geo.size.height * 0.18
+                        x: geo.size.width * 0.75,
+                        y: geo.size.height * 0.15
                     )
                 }
-                .zIndex(1)
+                
+//                let images: [String] = ["BrazilMap", "EsMap", "vitoriaMap"]
+//                Background(bg: images[imageIndex])
+//                    .scaleEffect(scale, anchor: .topLeading)
+//                    .opacity(opacity)
+//                    .onAppear {
+//                        zoomThenNext()
+//                    }
             }
             .navigationBarBackButtonHidden(true)
         }
-        
-
     }
+    
+    func zoomThenNext() {
+        withAnimation(.easeInOut(duration: 2)) {
+            scale = 2
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if imageIndex < 3 {
+                imageIndex += 1
+                scale = 1.0
+
+                zoomThenNext()
+            } else {
+                withAnimation(.easeOut(duration: 2)) {
+                    opacity = 0
+                }
+            }
+            
+        }
+    }
+    
 }

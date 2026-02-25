@@ -4,37 +4,46 @@
 //
 //  Created by Jordana Lourenço Santos on 13/02/26.
 //
-// barra de volume (slider)
-// barra de fonte
-// língua
 
 
 import SwiftUI
 
 struct SettingsPage: View {
-    @State private var volumeLevel: Double = 2
+    @AppStorage("volumeLevel") var volumeLevel: Double = 2.0
     static var shared = SettingsPage()
-    var language: String = "en"
+    var isPortuguese: Bool = false
+    @AppStorage("isFlagged") private var isFlagged = false
     
     var body: some View {
         GeometryReader() { geo in
-            VStack(){
-                Text("Settings")
-                    .padding()
+            ZStack(){
+                Background(bg: "bgGame3")
                 
-                Slider(value: $volumeLevel, in: 0...3, step: 1)
-                    .padding()
-                
-                Button {
-                    SettingsPage.shared.language = "pt"
-                } label: {
-                    Text("pt-br")
+                VStack(){
+                    Slider(value: $volumeLevel, in: 0...3, step: 1)
+                        .padding(30)
+
+                    Toggle(isOn: $isFlagged) { Label(checkLanguage()[0], systemImage: "") }
+                        .toggleStyle(.switch)
+                        .padding(30)
+                        .onChange(of: isFlagged) {
+                            SettingsPage.shared.isPortuguese.toggle()
+                        }
+                    Spacer()
                 }
-                
             }
         }
+        .navigationTitle(checkLanguage()[1])
         .onChange(of: volumeLevel) {
             Soundtrack.shared.changeVolume(volume: Int(volumeLevel))
+        }
+    }
+    
+    func checkLanguage() -> [String]{
+        if SettingsPage.shared.isPortuguese == true {
+            return ["Portuguese", "Settings"]
+        } else {
+            return ["Português", "Configurações"]
         }
     }
 }

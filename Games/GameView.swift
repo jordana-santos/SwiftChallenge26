@@ -29,7 +29,8 @@ struct GameView: View {
                 VStack(){
                     Rectangle()
                         .frame(width: geo.size.width * 0.95, height: geo.size.height * 0.08)
-                        .foregroundColor(.white)
+                        .foregroundColor(Color("whiteBlue"))
+                    //f1fdfc
                         .cornerRadius(10)
                         .overlay(
                             Text(text1[introPage])
@@ -90,6 +91,7 @@ struct GameView: View {
                                         .foregroundColor(.black)
                                         .frame(width: geo.size.width * 0.5, height: geo.size.height * 0.1)
                                         .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.25)
+                                        .font(.system(size: 17))
                                 }
                                 
                                 Spacer()
@@ -109,7 +111,7 @@ struct GameView: View {
                                         .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                                         .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.2)
                                         .cornerRadius(10)
-                                        .overlay(Text("Continue"))
+                                        .overlay(Text(continueButton()))
                                 }
                                 .padding()
                                 .buttonStyle(.glass)

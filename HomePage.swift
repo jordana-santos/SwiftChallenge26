@@ -18,13 +18,13 @@ struct HomePage: View {
                     Background(bg: "bgGame3")
                     
                     VStack(){
-                        Image("teste")
+                        Image("happyGreen")
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 50, height: 50)
+                            .frame(width: 150, height: 100)
                             .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
                         
-                        Text("Home Page")
+                        Text("Olga's Journey")
                             .padding(10)
                             .font(.title)
                             .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
@@ -40,7 +40,7 @@ struct HomePage: View {
                                 .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.4)
                                 .cornerRadius(10)
                                 .overlay(
-                                    Text("Start")
+                                    Text(checkLanguage()[0])
                                         .bold()
                                 )
                         }
@@ -56,7 +56,7 @@ struct HomePage: View {
                                 .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                                 .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.5)
                                 .cornerRadius(10)
-                                .overlay(Text("Settings"))
+                                .overlay(Text(checkLanguage()[1]))
                         }
                         .padding(5)
                         .buttonStyle(.glass)
@@ -69,7 +69,7 @@ struct HomePage: View {
                                 .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                                 .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.6)
                                 .cornerRadius(10)
-                                .overlay(Text("About Me"))
+                                .overlay(Text(checkLanguage()[2]))
                         }
                         .padding(5)
                         .buttonStyle(.glass)
@@ -81,13 +81,21 @@ struct HomePage: View {
                         )
                     }
                     .onAppear(){
-                        if Soundtrack.shared.player?.isPlaying == false {
+                        if Soundtrack.shared.player?.isPlaying != false {
                             Soundtrack.shared.playMusic()
                         }
                     }
                 }
             }
             
+        }
+    }
+    
+    func checkLanguage() -> [String]{
+        if SettingsPage.shared.isPortuguese == true {
+            return ["Start", "Settings", "About Me"]
+        } else {
+            return ["Começar", "Configurações", "Sobre mim"]
         }
     }
 }

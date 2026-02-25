@@ -23,15 +23,10 @@ let package = Package(
             appIcon: .placeholder(icon: .weights),
             accentColor: .presetColor(.teal),
             supportedDeviceFamilies: [
-                .pad,
                 .phone
             ],
             supportedInterfaceOrientations: [
                 .portrait,
-                .landscapeRight,
-                .landscapeLeft,
-                .portraitUpsideDown(.when(deviceFamilies: [.pad]))
-            ],
             appCategory: .games
         )
     ],
@@ -40,8 +35,8 @@ let package = Package(
             name: "AppModule",
             path: ".",
             resources: [
-                     .process("Resources")
-              ]
+             .process("Resources")
+            ]
         )
     ],
     swiftLanguageVersions: [.version("6")]

@@ -15,7 +15,7 @@ class Soundtrack: ObservableObject{
     
     public func playMusic() {
         guard let path = Bundle.main.path(forResource: "turtlesIntro", ofType: "m4a") else {
-            print("Background music file not found!")
+            print("Soundtrack file not found!")
             return
         }
         do {
@@ -24,11 +24,10 @@ class Soundtrack: ObservableObject{
             player?.numberOfLoops = -1
             player?.play()
 
-            // Enable background playback
             try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default, options: [])
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
-            print("Error loading background music: \(error.localizedDescription)")
+            print("Error loading soundtrack: \(error.localizedDescription)")
         }
         
     }
@@ -53,7 +52,6 @@ class Soundtrack: ObservableObject{
                 player?.volume = 0.9
             default:
                 player?.play()
-                player?.volume = 0.3
         }
     }
 }

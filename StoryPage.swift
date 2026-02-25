@@ -64,7 +64,7 @@ struct StoryPage: View {
                             .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                             .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.2)
                             .cornerRadius(10)
-                            .overlay(Text("Continue"))
+                            .overlay(Text(continueButton()))
                     }
                     .padding()
                     .buttonStyle(.glass) 
