@@ -62,7 +62,7 @@ struct FinalPage: View {
         let textPt = """
             Obrigada pela sua ajuda! Agora que você sabe onde moramos, venha nos visitar quando quiser! E se não nos vir logo de cara, não se preocupe, nós subimos à superfície a cada 20 minutos para respirar. É só esperar um pouquinho que aparecemos!
             """
-        if SettingsPage.shared.isPortuguese == true {
+        if SettingsPage.shared.isPortuguese {
             return [textPt, "Tela de Início"]
         } else {
             return [textEn, "Home"]

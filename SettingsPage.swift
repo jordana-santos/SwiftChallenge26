@@ -9,10 +9,11 @@
 import SwiftUI
 
 struct SettingsPage: View {
-    @AppStorage("volumeLevel") var volumeLevel: Double = 2.0
+    @AppStorage("volumeLevel") var volumeLevel = 2.0
     static var shared = SettingsPage()
-    var isPortuguese: Bool = false
-    @AppStorage("isFlagged") private var isFlagged = false
+    //@State var isPortuguese = false
+    @AppStorage("isPortuguese") var isPortuguese = false
+    //@AppStorage("isFlagged") var isFlagged = false
     
     var body: some View {
         GeometryReader() { geo in
@@ -23,12 +24,9 @@ struct SettingsPage: View {
                     Slider(value: $volumeLevel, in: 0...3, step: 1)
                         .padding(30)
 
-                    Toggle(isOn: $isFlagged) { Label(checkLanguage()[0], systemImage: "") }
+                    Toggle(isOn: $isPortuguese) { Text(checkLanguage()[0]) }
                         .toggleStyle(.switch)
                         .padding(30)
-                        .onChange(of: isFlagged) {
-                            SettingsPage.shared.isPortuguese.toggle()
-                        }
                     Spacer()
                 }
             }
@@ -40,10 +38,10 @@ struct SettingsPage: View {
     }
     
     func checkLanguage() -> [String]{
-        if SettingsPage.shared.isPortuguese == true {
-            return ["Portuguese", "Settings"]
-        } else {
+        if SettingsPage.shared.isPortuguese {
             return ["Português", "Configurações"]
+        } else {
+            return ["Portuguese", "Settings"]
         }
     }
 }

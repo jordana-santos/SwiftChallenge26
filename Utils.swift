@@ -29,10 +29,10 @@ extension SKScene {
 }
 
 @MainActor public func continueButton() -> String{
-    if SettingsPage.shared.isPortuguese == true {
-        return "Continue"
-    } else {
+    if SettingsPage.shared.isPortuguese {
         return "Continuar"
+    } else {
+        return "Continue"
     }
 }
 

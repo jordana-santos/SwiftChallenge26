@@ -26,7 +26,8 @@ let package = Package(
                 .phone
             ],
             supportedInterfaceOrientations: [
-                .portrait,
+                .portrait
+            ],
             appCategory: .games
         )
     ],

@@ -9,7 +9,7 @@ import SpriteKit
 
 class Boats: SKScene {
     let turtle1 = SKSpriteNode(imageNamed: "green")
-    let turtle2 = SKSpriteNode(imageNamed: "green")
+    let turtle2 = SKSpriteNode(imageNamed: "marina")
     let boat1 = SKSpriteNode(imageNamed: "boat")
     let boat2 = SKSpriteNode(imageNamed: "boat")
     let boat3 = SKSpriteNode(imageNamed: "boat")
@@ -33,7 +33,7 @@ class Boats: SKScene {
         boat3.position = relPos(x: 0.12, y: 0.8)
 
         turtle1.size = relSize(w: 0.18, h: 0.1)
-        turtle2.size = relSize(w: 0.18, h: 0.1)
+        turtle2.size = relSize(w: 0.16, h: 0.08)
         boat1.size = relSize(w: 0.3, h: 0.06)
         boat2.size = relSize(w: 0.3, h: 0.06)
         boat3.size = relSize(w: 0.3, h: 0.06)

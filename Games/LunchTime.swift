@@ -10,7 +10,7 @@ import SpriteKit
 class lunchTime: SKScene {
     let turtle1 = SKSpriteNode(imageNamed: "green")
     let turtle2 = SKSpriteNode(imageNamed: "loggerhead")
-    let turtle3 = SKSpriteNode(imageNamed: "green")
+    let turtle3 = SKSpriteNode(imageNamed: "marina")
     let algae1 = SKSpriteNode(imageNamed: "algae")
     let algae2 = SKSpriteNode(imageNamed: "algae")
     let algae3 = SKSpriteNode(imageNamed: "algae")
@@ -37,7 +37,7 @@ class lunchTime: SKScene {
         
         turtle1.size = relSize(w: 0.18, h: 0.1)
         turtle2.size = relSize(w: 0.15, h: 0.11)
-        turtle3.size = relSize(w: 0.18, h: 0.1)
+        turtle3.size = relSize(w: 0.16, h: 0.08)
         algae1.size = relSize(w: 0.12, h: 0.1)
         algae2.size = relSize(w: 0.12, h: 0.1)
         algae3.size = relSize(w: 0.12, h: 0.1)

@@ -92,10 +92,10 @@ struct HomePage: View {
     }
     
     func checkLanguage() -> [String]{
-        if SettingsPage.shared.isPortuguese == true {
-            return ["Start", "Settings", "About Me"]
+        if SettingsPage.shared.isPortuguese {
+            return ["Iniciar", "Configurações", "Sobre mim"]
         } else {
-            return ["Começar", "Configurações", "Sobre mim"]
+            return ["Start", "Settings", "About Me"]
         }
     }
 }

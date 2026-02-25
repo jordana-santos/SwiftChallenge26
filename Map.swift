@@ -12,9 +12,10 @@ struct Map: View {
     @Binding var introPage: Int
     @State var isAnimating: Bool = false
     @State var isZooming: Bool = true
-    @State private var scale: CGFloat = 1.0
-    @State private var imageIndex = 0
-    @State private var opacity = 1.0
+    @State private var scales = [1.0, 1.0, 1.0, 1.0]
+    @State private var opacities = [1.0, 1.0, 1.0, 1.0]
+    @State private var currentLayer = 0
+    let images: [String] = ["BrazilMap", "ESMap", "VitoriaMap"]
     
     var body: some View {
         GeometryReader{geo in
@@ -123,36 +124,37 @@ struct Map: View {
                         y: geo.size.height * 0.15
                     )
                 }
-                
-//                let images: [String] = ["BrazilMap", "EsMap", "vitoriaMap"]
-//                Background(bg: images[imageIndex])
-//                    .scaleEffect(scale, anchor: .topLeading)
-//                    .opacity(opacity)
-//                    .onAppear {
-//                        zoomThenNext()
-//                    }
+                if introPage == 0 {
+                    ForEach((0..<3).reversed(), id: \.self) { i in
+                        Background(bg: images[i])
+                            .scaleEffect(scales[i], anchor:  UnitPoint(x: 0.7, y: 0.6))
+                            .opacity(opacities[i])
+                    }
+                    .onAppear(){
+                        animateLayers()
+                    }
+                }
             }
             .navigationBarBackButtonHidden(true)
         }
     }
     
-    func zoomThenNext() {
-        withAnimation(.easeInOut(duration: 2)) {
-            scale = 2
+    func animateLayers() {
+        guard currentLayer < 3 else { return }
+
+        withAnimation(.easeInOut(duration: 6)) {
+            scales[currentLayer] = 2
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now()) {
-            if imageIndex < 3 {
-                imageIndex += 1
-                scale = 1.0
-
-                zoomThenNext()
-            } else {
-                withAnimation(.easeOut(duration: 2)) {
-                    opacity = 0
-                }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            withAnimation(.easeOut(duration: 3)) {
+                opacities[currentLayer] = 0
             }
-            
+        }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            currentLayer += 1
+            animateLayers()
         }
     }
     
