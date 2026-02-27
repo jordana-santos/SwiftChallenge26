@@ -142,17 +142,17 @@ struct Map: View {
     func animateLayers() {
         guard currentLayer < 3 else { return }
 
-        withAnimation(.easeInOut(duration: 6)) {
+        withAnimation(.easeInOut(duration: 5)) {
             scales[currentLayer] = 2
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             withAnimation(.easeOut(duration: 3)) {
                 opacities[currentLayer] = 0
             }
         }
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
             currentLayer += 1
             animateLayers()
         }

@@ -16,7 +16,6 @@ enum Route: String, Hashable, Codable, RawRepresentable {
     case game
     case final
     case settings
-    case aboutMe
 }
 
 extension Route {
@@ -48,8 +47,6 @@ extension Route {
         case .settings:
             SettingsPage()
         
-        case .aboutMe:
-            AboutMe()
         }
     }
 }

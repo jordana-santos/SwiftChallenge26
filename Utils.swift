@@ -15,6 +15,7 @@ public func Background(bg: String) -> some View{
             .scaledToFill()
             .ignoresSafeArea()
             .frame(width: geo.size.width, height: geo.size.height)
+            .accessibilityHidden(true)
     }
 }
 

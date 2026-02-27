@@ -15,20 +15,9 @@ struct HomePage: View {
         NavigationStack(path: $path){
             GeometryReader { geo in
                 ZStack(){
-                    Background(bg: "bgGame3")
+                    Background(bg: "bgHome")
                     
                     VStack(){
-                        Image("happyGreen")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 150, height: 100)
-                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
-                        
-                        Text("Olga's Journey")
-                            .padding(10)
-                            .font(.title)
-                            .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.3)
-                        
                         Spacer()
                         
                         //start button
@@ -61,18 +50,6 @@ struct HomePage: View {
                         .padding(5)
                         .buttonStyle(.glass)
                         
-                        //about me page
-                        Button {
-                            path.append(.aboutMe)
-                        } label: {
-                            Rectangle()
-                                .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
-                                .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.6)
-                                .cornerRadius(10)
-                                .overlay(Text(checkLanguage()[2]))
-                        }
-                        .padding(5)
-                        .buttonStyle(.glass)
                     }
                     .navigationDestination(for: Route.self) { page in
                         page.view(
@@ -93,9 +70,9 @@ struct HomePage: View {
     
     func checkLanguage() -> [String]{
         if SettingsPage.shared.isPortuguese {
-            return ["Iniciar", "Configurações", "Sobre mim"]
+            return ["Iniciar", "Configurações"]
         } else {
-            return ["Start", "Settings", "About Me"]
+            return ["Start", "Settings"]
         }
     }
 }
