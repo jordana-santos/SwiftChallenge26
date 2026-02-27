@@ -48,6 +48,7 @@ struct StoryPage: View {
                                 .padding(30)
                                 .offset(x: geo.size.width * 0.01, y: geo.size.height * 0.015)
                                 .font(.system(size: 17))
+                                .foregroundColor(.black)
                         }
                     }
                     
@@ -64,7 +65,11 @@ struct StoryPage: View {
                             .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                             .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.2)
                             .cornerRadius(10)
-                            .overlay(Text(continueButton()))
+                            .overlay(
+                                Text(continueButton())
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 17))
+                            )
                     }
                     .padding()
                     .buttonStyle(.glass) 

@@ -8,19 +8,19 @@ import PackageDescription
 import AppleProductTypes
 
 let package = Package(
-    name: "SwiftChallenge25",
+    name: "Olga's Journey",
     platforms: [
         .iOS("26.0")
     ],
     products: [
         .iOSApplication(
-            name: "SwiftChallenge25",
+            name: "Olga's Journey",
             targets: ["AppModule"],
-            bundleIdentifier: "academy.SwiftChallenge25",
+            bundleIdentifier: "academy.OlgasJourney",
             teamIdentifier: "M6V5WGN23W",
             displayVersion: "1.0",
             bundleVersion: "1",
-            appIcon: .placeholder(icon: .weights),
+            appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.teal),
             supportedDeviceFamilies: [
                 .phone
@@ -36,8 +36,8 @@ let package = Package(
             name: "AppModule",
             path: ".",
             resources: [
-             .process("Resources")
-            ]
+                .process("Resources")
+            ]
         )
     ],
     swiftLanguageVersions: [.version("6")]

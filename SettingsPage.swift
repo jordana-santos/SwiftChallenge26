@@ -24,7 +24,11 @@ struct SettingsPage: View {
                     Slider(value: $volumeLevel, in: 0...3, step: 1)
                         .padding(30)
 
-                    Toggle(isOn: $isPortuguese) { Text(checkLanguage()[0]) }
+                    Toggle(isOn: $isPortuguese) {
+                        Text(checkLanguage()[0])
+                            .foregroundColor(.black)
+                            .font(.system(size: 17))
+                    }
                         .toggleStyle(.switch)
                         .padding(30)
                     Spacer()

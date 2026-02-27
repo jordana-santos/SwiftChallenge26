@@ -30,6 +30,8 @@ struct HomePage: View {
                                 .cornerRadius(10)
                                 .overlay(
                                     Text(checkLanguage()[0])
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 17))
                                         .bold()
                                 )
                         }
@@ -45,7 +47,11 @@ struct HomePage: View {
                                 .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                                 .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.5)
                                 .cornerRadius(10)
-                                .overlay(Text(checkLanguage()[1]))
+                                .overlay(
+                                    Text(checkLanguage()[1])
+                                        .foregroundColor(.black)
+                                        .font(.system(size: 17))
+                                )
                         }
                         .padding(5)
                         .buttonStyle(.glass)

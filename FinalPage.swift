@@ -44,7 +44,11 @@ struct FinalPage: View {
                             .frame(width: geo.size.width * 0.85, height: geo.size.height * 0.05)
                             .offset(x: geo.size.width * 0.025,y: geo.size.height * 0.1)
                             .cornerRadius(10)
-                            .overlay(Text(checkLanguage()[1]))
+                            .overlay(
+                                Text(checkLanguage()[1])
+                                    .foregroundColor(.black)
+                                    .font(.system(size: 17))
+                            )
                     }
                     .padding()
                     .buttonStyle(.glass)
